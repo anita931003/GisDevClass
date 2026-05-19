@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們｜福興龍眼咖啡</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS 滾動動畫庫 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="icon" href="images/logo.png">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* Hero 視覺區 (修正圖片路徑) */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* 表單外殼與輸入框 */
+        .contact-box {
+            background: white;
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .contact-box h2 {
+            color: #5c3d2e;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 12px;
+            margin-bottom: 30px;
+        }
+
+        .contact-box h2::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: #c89b72;
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #5c3d2e;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 18px;
+            border: 1px solid rgba(74, 52, 38, 0.15);
+            background: #fbf9f6;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: #8b5e3c;
+            box-shadow: 0 0 0 0.25rem rgba(139, 94, 60, 0.15);
+            color: #4a3426;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        /* 核心膠囊按鈕 */
+        .main-btn {
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(200, 155, 114, 0.3);
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 100%;
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 94, 60, 0.4);
+        }
+
+        /* 右側資訊卡片 */
+        .info-card {
+            background: #efe4d8;
+            padding: 40px 35px;
+            border-radius: 30px;
+            height: 100%;
+            box-shadow: 0 8px 25px rgba(74, 52, 38, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .info-card h3, .info-card h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+        }
+
+        .info-link {
+            color: #4a3426;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .info-link:hover {
+            color: #8b5e3c;
+        }
+
+        .coop-list {
+            padding-left: 20px;
+        }
+
+        .coop-list li {
+            margin-bottom: 10px;
+            color: #5c4738;
+            position: relative;
+            list-style-type: none;
+        }
+
+        .coop-list li::before {
+            content: "•";
+            color: #c89b72;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+        @media(max-width:768px) {
+            .contact-box {
+                padding: 30px 20px;
+            }
+            .hero {
+                height: 300px;
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar (全站統一版，聯絡我們頁標註 active) -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                炭焙龍香・福興啡語
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 視覺區 -->
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1>聯絡我們</h1>
+            <p class="mt-3 opacity-90">地方交流 × 品牌合作 × 活動諮詢</p>
+        </div>
+    </section>
+
+    <!-- 表單與資訊區塊 -->
+    <section class="py-5 my-4">
+        <div class="container">
+            <div class="row g-5">
+                
+                <!-- 左側：聯絡表單 -->
+                <div class="col-md-7" data-aos="fade-right" data-aos-delay="100">
+                    <div class="contact-box">
+                        <h2>聯絡表單</h2>
+                        <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                            <div class="mt-4">
+                                <label class="form-label">姓名</label>
+                                <input type="text" id="formName" class="form-control mt-1" placeholder="請輸入您的姓名" required>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label">電子信箱</label>
+                                <input type="email" id="formEmail" class="form-control mt-1" placeholder="請輸入您的 Email" required>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label">聯絡主題</label>
+                                <input type="text" id="formSubject" class="form-control mt-1" placeholder="請輸入聯絡主題" required>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label">留言內容</label>
+                                <textarea id="formMessage" class="form-control mt-1" rows="5" placeholder="請詳細輸入您想說的內容..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="main-btn mt-4">送出聯絡表單</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 右側：聯絡資訊 -->
+                <div class="col-md-5" data-aos="fade-left" data-aos-delay="200">
+                    <div class="info-card">
+                        <h3>聯絡資訊</h3>
+                        <div class="mt-4 opacity-90">
+                            <p class="mb-2"><strong>計畫基地：</strong>彰化縣大村鄉福興村</p>
+                            <p class="mb-2"><strong>電子信箱：</strong><a href="mailto:longancoffee@gmail.com" class="info-link">longancoffee@gmail.com</a></p>
+                            <p class="mb-2"><strong>聯絡電話：</strong><a href="tel:0412345678" class="info-link">04-1234-5678</a></p>
+                            <p class="mb-4"><strong>服務時間：</strong>週一至週五 09:00 － 18:00</p>
+                        </div>
+
+                        <hr style="border-color: rgba(74, 52, 38, 0.2);">
+
+                        <h4 class="mt-4">核心合作對象</h4>
+                        <ul class="coop-list mt-3">
+                            <li>大村鄉公所與村長辦公室創生對接</li>
+                            <li>大村在地農友龍眼木殘材循環經濟合作</li>
+                            <li>大專院校（如逢甲大學等）社區實踐與USR計畫</li>
+                            <li>外籍移工與國際學生多元文化交流活動策劃</li>
+                            <li>假日主題體驗市集與手作工坊進駐</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4>福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- 核心功能腳本 -->
+    <script>
+        // 初始化滾動動畫
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+
+        // 表單送出模擬功能
+        function handleFormSubmit(event) {
+            event.preventDefault(); // 阻擋表單預設重新整理行為
+            
+            const name = document.getElementById('formName').value;
+            const subject = document.getElementById('formSubject').value;
+            
+            alert(`謝謝您，${name}！您的關於「${subject}」的留言已成功模擬送出。\n我們將會盡快安排與福興村創生團隊、村長或公所公務人員與您聯繫。`);
+            
+            // 清空表單欄位
+            document.getElementById('contactForm').reset();
+        }
+
+        // 語言切換 (維持全站規格統一)
+        function changeLanguage(lang){
+            if(lang=="zh"){ alert("繁體中文版"); }
+            if(lang=="en"){ alert("English Version Coming Soon"); }
+            if(lang=="id"){ alert("Versi Bahasa Indonesia"); }
+            if(lang=="vn"){ alert("Phiên bản tiếng Việt"); }
+        }
+
+        // 假購物車功能 (維持全站規格統一)
+        function addCart(product){
+            alert(product + " 已成功加入購物車！");
+        }
+    </script>
+</body>
+</html>

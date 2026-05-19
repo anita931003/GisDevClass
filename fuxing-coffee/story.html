@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌故事｜福興龍眼咖啡</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <link rel="icon" href="images/logo.png">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            /* 預設優先使用您指定的 Noto Serif TC */
+            font-family: 'Noto Serif TC', 'Noto Sans TC', serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* Hero 視覺區 (已更換為您附上的新背景圖片 background2.jpg) */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("images/background2.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        /* 故事內文區塊 */
+        .story-box {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 30px;
+            box-shadow: 0 12px 35px rgba(74, 52, 38, 0.05);
+            margin-top: -80px;
+            position: relative;
+            z-index: 5;
+            border: 1px solid rgba(74, 52, 38, 0.03);
+        }
+
+        .story-box h2 {
+            color: #5c3d2e;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 35px;
+        }
+
+        .story-box h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #c89b72;
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .story-box p {
+            font-size: 16.5px;
+            line-height: 1.9;
+            color: #5c4738;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        /* 呼應創生小標章 */
+        .badge-coop {
+            background-color: #efe4d8;
+            color: #8b5e3c;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-right: 8px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+        @media(max-width:768px) {
+            .story-box {
+                padding: 40px 25px;
+                margin-top: -50px;
+            }
+            .hero {
+                min-height: 50vh;
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                炭焙龍香・福興啡語
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="story.html">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1>品牌故事</h1>
+            <p>龍眼木 × 咖啡 × 土地記憶</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="story-box" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+            
+            <h2>土地上的第二次生命</h2>
+            
+            <p>
+                彰化縣大村鄉福興村並沒有廣為人知的明星級觀光特產，卻擁有最真實、最溫暖的臺灣農村日常。
+                在這片純樸的土地上，隨處可見的繁茂龍眼樹與近年逐步耕耘的咖啡作物，正默默交織出屬於地方創生的全新契機。
+            </p>
+
+            <p>
+                每當夏末熱鬧的龍眼採收季節結束後，果農們皆需要對果樹進行例行性的枝條修剪。在過去，這些龐大的既有龍眼木殘材往往只能被棄置或就地露天焚燒，造成環境的負擔。
+                如今，本計畫秉持<strong>循環經濟</strong>的永續理念，將其回收轉化為極具價值的炭焙燃料。讓厚實的果木煙燻香氣在烘焙過程中深深融入在地精品咖啡豆之中，完美化身為獨一無二的「龍木燻焙精品咖啡」。
+            </p>
+
+            <p>
+                隨著時代變遷，福興村也逐漸演變成一個充滿朝氣的多元文化聚落。鄰近的大葉大學外籍留學生、國際新住民以及常駐於在地產業的東南亞移工夥伴，均已成為這片土地不可或缺的重要成員。
+                為此，「炭焙龍香・福興啡語」平台特別貼心導入多語言導覽與多語系友善服務，期待打破語言藩籬，讓多元文化交流共融在咖啡的濃郁香氣中，徹底體現 SDGs 永續包容社區的深遠願景。
+            </p>
+
+            <div class="mt-4 pt-3 border-top d-flex flex-wrap gap-2" style="border-color: rgba(74, 52, 38, 0.08) !important;">
+                <span class="badge-coop">#大村鄉福興村</span>
+                <span class="badge-coop">#循環經濟與低碳再生</span>
+                <span class="badge-coop">#多元文化共融平台</span>
+                <span class="badge-coop">#大葉大學USR合作</span>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h4>福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // 初始化滾動動畫
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+
+        // 語言切換 (全站統一函式)
+        function changeLanguage(lang){
+            if(lang=="zh"){ alert("繁體中文版"); }
+            if(lang=="en"){ alert("English Version Coming Soon"); }
+            if(lang=="id"){ alert("Versi Bahasa Indonesia"); }
+            if(lang=="vn"){ alert("Phiên bản tiếng Việt"); }
+        }
+
+        // 假購物車功能 (全站統一函式)
+        function addCart(product){
+            alert(product + " 已成功加入購物車！");
+        }
+    </script>
+</body>
+</html>

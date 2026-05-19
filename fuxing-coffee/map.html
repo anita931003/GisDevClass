@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地圖導覽｜福興龍眼咖啡</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS 滾動動畫庫 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="icon" href="images/logo.png">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* 地圖外殼優化 */
+        .map-box {
+            margin-top: 140px;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.05);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .map-box h1 {
+            color: #5c3d2e;
+            font-weight: 700;
+        }
+
+        /* 景點導覽卡片 */
+        .spot-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 6px 18px rgba(74, 52, 38, 0.03);
+            height: 100%;
+            transition: 0.3s;
+            border-left: 5px solid #c89b72;
+        }
+
+        .spot-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(74, 52, 38, 0.08);
+        }
+
+        .spot-card h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+        }
+
+        .badge-theme {
+            background-color: #efe4d8;
+            color: #8b5e3c;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 13px;
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar (全站統一版，地圖頁標註 active) -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                炭焙龍香・福興啡語
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="map.html">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 地圖核心區塊 -->
+    <div class="container">
+        <div class="map-box" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="mb-2 text-center">福興村地圖導覽</h1>
+            <p class="text-center text-muted mb-4">探索彰化大村鄉福興村的產業轉型與文化再生基地</p>
+            
+            <div class="ratio ratio-21x9" style="min-height: 450px;">
+                <iframe
+                    src="https://www.google.com/maps?q=彰化縣大村鄉福興村&output=embed"
+                    style="border:0; border-radius:20px;"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 活化空間與景點導覽說明（提升創生提案深度） -->
+    <div class="container mt-5 pt-3">
+        <h3 class="mb-4 font-weight-bold" data-aos="fade-up" style="color: #4a3426; font-weight: 700;">創生場域規劃</h3>
+        <div class="row g-4">
+            
+            <!-- 景點 1 -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="spot-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>福興咖啡交流中心</h4>
+                        <span class="badge badge-theme">遊客服務中心</span>
+                    </div>
+                    <p class="text-muted small">規劃利用社區內閒置公有土地進行活化再造，未來將作為福興村的地方創生核心基地與遊客諮詢據點，串聯在地農業記憶與現代咖啡文化。</p>
+                </div>
+            </div>
+
+            <!-- 景點 2 -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="spot-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>假日微風廣場</h4>
+                        <span class="badge badge-theme">主題體驗活動</span>
+                    </div>
+                    <p class="text-muted small">本計畫打破常態性固定市集的框架，依據地方訪談共識，採彈性、主題式的假日活動形式，定期舉辦龍眼木烘焙體驗與多元文化交流市集。</p>
+                </div>
+            </div>
+
+            <!-- 景點 3 -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="spot-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4>共融文化地圖廊道</h4>
+                        <span class="badge badge-theme">東南亞文化共融</span>
+                    </div>
+                    <p class="text-muted small">結合福興村在地農業聚落、外籍移工與學生生活圈，建立友善的雙語與多語導覽廊道，落實SDGs永續社區與多元文化共融願景。</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4>福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- 核心功能腳本 -->
+    <script>
+        // 初始化滾動動畫
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+
+        // 語言切換 (維持全站規格統一)
+        function changeLanguage(lang){
+            if(lang=="zh"){ alert("繁體中文版"); }
+            if(lang=="en"){ alert("English Version Coming Soon"); }
+            if(lang=="id"){ alert("Versi Bahasa Indonesia"); }
+            if(lang=="vn"){ alert("Phiên bản tiếng Việt"); }
+        }
+
+        // 假購物車功能 (維持全站規格統一)
+        function addCart(product){
+            alert(product + " 已成功加入購物車！");
+        }
+    </script>
+</body>
+</html>
+</html>

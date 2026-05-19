@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動體驗｜福興龍眼咖啡</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <link rel="icon" href="images/logo.png">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* Hero 視覺區 (修正圖片路徑) */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #4a3426;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: 'EXPERIENCE';
+            display: block;
+            font-size: 12px;
+            color: #c89b72;
+            letter-spacing: 4px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        /* 精緻活動卡片優化 */
+        .event-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            border: 1px solid rgba(74, 52, 38, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(74, 52, 38, 0.12);
+            border-color: rgba(200, 155, 114, 0.3);
+        }
+
+        .event-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .event-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 狀態標籤 */
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(139, 94, 60, 0.9);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .event-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .event-body h3 {
+            color: #5c3d2e;
+            font-weight: 700;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .event-body p {
+            font-size: 15px;
+            color: #6b5344;
+            line-height: 1.6;
+        }
+
+        /* 活動資訊清單美化 */
+        .event-info-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 20px 0;
+            background: #fbf9f6;
+            padding: 15px;
+            border-radius: 14px;
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .event-info-list li {
+            font-size: 14px;
+            color: #5c4738;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .event-info-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .event-info-list li::before {
+            content: "◆";
+            color: #c89b72;
+            font-size: 10px;
+            margin-right: 8px;
+        }
+
+        /* 膠囊按鈕 */
+        .main-btn {
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: auto; /* 將按鈕推至最底部對齊 */
+            box-shadow: 0 4px 12px rgba(200, 155, 114, 0.2);
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(139, 94, 60, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+        @media(max-width:768px) {
+            .hero {
+                height: 300px;
+                background-attachment: scroll;
+            }
+            .event-body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                炭焙龍香・福興啡語
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="event.html">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1>活動體驗</h1>
+            <p class="mt-3 opacity-90">地方文化 × 多元交流 × 農村生活</p>
+        </div>
+    </section>
+
+    <section class="py-5 my-4">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">年度活動企劃</h2>
+
+            <div class="row g-4">
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="event-card">
+                        <div class="event-img-wrapper">
+                            <img src="images/event1.jpg" alt="龍眼採果體驗">
+                            <span class="status-badge">開放報名中</span>
+                        </div>
+                        <div class="event-body">
+                            <h3>龍眼採果體驗</h3>
+                            <p class="mt-2">體驗福興村結實纍纍的龍眼採收文化，親身走進果園深處，認識地方歷史悠久的傳統農業與純樸的農村生活方式。</p>
+                            
+                            <ul class="event-info-list">
+                                <li><strong>活動日期：</strong>2026 / 07 / 15</li>
+                                <li><strong>活動地點：</strong>大村鄉福興村特約龍眼園</li>
+                                <li><strong>活動人數：</strong>限額 30 人</li>
+                            </ul>
+                            
+                            <button class="main-btn" onclick="bookEvent('龍眼採果體驗')">立即線上報名</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="event-card">
+                        <div class="event-img-wrapper">
+                            <img src="images/coffee1.jpg" alt="手沖咖啡工作坊">
+                            <span class="status-badge" style="background: #a97c55;">即將額滿</span>
+                        </div>
+                        <div class="event-body">
+                            <h3>手沖咖啡工作坊</h3>
+                            <p class="mt-2">由在地烘豆師指導，學習基礎至進階的精品咖啡沖泡技巧，深度品味與認識福興村獨特的龍眼木炭焙風味與循環經濟理念。</p>
+                            
+                            <ul class="event-info-list">
+                                <li><strong>活動日期：</strong>2026 / 08 / 10</li>
+                                <li><strong>活動地點：</strong>福興社區活動中心二樓</li>
+                                <li><strong>活動人數：</strong>限額 20 人</li>
+                            </ul>
+                            
+                            <button class="main-btn" onclick="bookEvent('手沖咖啡工作坊')">我要保留名額</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="event-card">
+                        <div class="event-img-wrapper">
+                            <img src="images/foreign-worker.jpg" alt="東南亞文化交流日">
+                            <span class="status-badge" style="background: #5c4738;">即將開放</span>
+                        </div>
+                        <div class="event-body">
+                            <h3>東南亞文化交流日</h3>
+                            <p class="mt-2">特別邀請在地產業的外籍移工與鄰近學校之國際學生，與福興村居民共同參與，透過異國美食、民俗展演與咖啡落實多元文化共融。</p>
+                            
+                            <ul class="event-info-list">
+                                <li><strong>活動日期：</strong>2026 / 09 / 05</li>
+                                <li><strong>活動地點：</strong>福興村中央廣場合作場域</li>
+                                <li><strong>活動人數：</strong>限額 50 人</li>
+                            </ul>
+                            
+                            <button class="main-btn" onclick="bookEvent('東南亞文化交流日')">查看活動詳情</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h4>福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // 初始化滾動動畫
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+
+        // 模擬報名活動功能
+        function bookEvent(eventName) {
+            alert(`【線上模擬報名】\n您已成功送出「${eventName}」的參加意願！\n系統已為您保留名額，後續將由大村鄉福興村創生團隊寄發確認通知信。`);
+        }
+
+        // 語言切換 (維持全站規格統一)
+        function changeLanguage(lang){
+            if(lang=="zh"){ alert("繁體中文版"); }
+            if(lang=="en"){ alert("English Version Coming Soon"); }
+            if(lang=="id"){ alert("Versi Bahasa Indonesia"); }
+            if(lang=="vn"){ alert("Phiên bản tiếng Việt"); }
+        }
+
+        // 假購物車功能 (維持全站規格統一)
+        function addCart(product){
+            alert(product + " 已成功加入購物車！");
+        }
+    </script>
+</body>
+</html>

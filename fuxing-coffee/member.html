@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員中心｜福興龍眼咖啡</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS 滾動動畫庫 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="icon" href="images/logo.png">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* Hero 視覺區 (修正圖片路徑) */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* 登入外殼與輸入框 */
+        .member-box {
+            background: white;
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .member-box h2 {
+            color: #5c3d2e;
+            font-weight: 700;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #5c3d2e;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 18px;
+            border: 1px solid rgba(74, 52, 38, 0.15);
+            background: #fbf9f6;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: #8b5e3c;
+            box-shadow: 0 0 0 0.25rem rgba(139, 94, 60, 0.15);
+            color: #4a3426;
+        }
+
+        /* 核心膠囊按鈕 */
+        .main-btn {
+            width: 100%;
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(200, 155, 114, 0.3);
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 94, 60, 0.4);
+        }
+
+        /* 專屬功能卡片優化 */
+        .feature-card {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 24px;
+            box-shadow: 0 8px 25px rgba(74, 52, 38, 0.03);
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 35px rgba(74, 52, 38, 0.1);
+            border-color: rgba(200, 155, 114, 0.3);
+        }
+
+        .feature-card h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background: #c89b72;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: #6b5344;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+        @media(max-width:768px) {
+            .member-box {
+                padding: 35px 20px;
+            }
+            .hero {
+                height: 300px;
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar (全站統一版，會員中心頁標註 active) -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                炭焙龍香・福興啡語
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="member.html">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 視覺區 -->
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1>會員中心</h1>
+            <p class="mt-3 opacity-90">加入福興龍眼咖啡會員平台</p>
+        </div>
+    </section>
+
+    <!-- 登入註冊區塊 -->
+    <section class="py-5 my-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="member-box">
+                        <h2 class="text-center mb-4">會員登入</h2>
+                        <form id="loginForm" onsubmit="handleLogin(event)">
+                            <div class="mb-3">
+                                <label class="form-label">電子信箱</label>
+                                <input type="email" id="loginEmail" class="form-control mt-1" placeholder="請輸入您的 Email" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">密碼</label>
+                                <input type="password" id="loginPassword" class="form-control mt-1" placeholder="請輸入您的密碼" required>
+                            </div>
+
+                            <button type="submit" class="main-btn">確認登入會員</button>
+                        </form>
+
+                        <div class="text-center mt-4 pt-2">
+                            <p class="text-muted small mb-2">尚未加入福興啡語會員？</p>
+                            <button class="btn btn-outline-secondary px-4 btn-sm" style="border-radius: 50px;" onclick="handleRegister()">
+                                立即免費註冊
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 會員專屬功能區塊 -->
+    <section class="pb-5 my-4">
+        <div class="container">
+            <h2 class="text-center mb-5 font-weight-bold" data-aos="fade-up" style="color: #4a3426; font-weight: 700;">會員專屬權益</h2>
+
+            <div class="row g-4">
+                
+                <!-- 權益 1 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card text-center">
+                        <h4>商品收藏</h4>
+                        <p class="mt-3">一鍵收藏喜愛的精品咖啡與限量農特產品禮盒，方便隨時追蹤、回購並查看最新推廣優惠資訊。</p>
+                    </div>
+                </div>
+
+                <!-- 權益 2 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card text-center">
+                        <h4>活動報名</h4>
+                        <p class="mt-3">享有熱門活動第一手通知，可線上快速報名地方採果體驗、龍眼木炭焙手沖工作坊與文化共融論壇。</p>
+                    </div>
+                </div>
+
+                <!-- 權益 3 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card text-center">
+                        <h4>多語言支援</h4>
+                        <p class="mt-3">全站貼心內建印尼語、越南語等多語系點擊預覽，落實友善大村在地移工與外籍學生的共融平台環境。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4>福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- 核心功能腳本 -->
+    <script>
+        // 初始化滾動動畫
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+
+        // 模擬會員登入功能
+        function handleLogin(event) {
+            event.preventDefault(); // 阻擋表單預設重新整理
+            const email = document.getElementById('loginEmail').value;
+            alert(`【公展公測模式】\n歡迎回來！會員 [ ${email} ] 模擬登入成功。\n您已解鎖福興村創生平台之活動報名與快速收藏功能！`);
+        }
+
+        // 模擬立即註冊功能
+        function handleRegister() {
+            alert("【公展公測模式】\n即將跳轉至多語系會員註冊表單流程！\n（本系統已為大村在地新住民、外籍同學優化雙語欄位）");
+        }
+
+        // 語言切換 (維持全站規格統一)
+        function changeLanguage(lang){
+            if(lang=="zh"){ alert("繁體中文版"); }
+            if(lang=="en"){ alert("English Version Coming Soon"); }
+            if(lang=="id"){ alert("Versi Bahasa Indonesia"); }
+            if(lang=="vn"){ alert("Phiên bản tiếng Việt"); }
+        }
+
+        // 假購物車功能 (維持全站規格統一)
+        function addCart(product){
+            alert(product + " 已成功加入購物車！");
+        }
+    </script>
+</body>
+</html>
