@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們｜福興龍眼咖啡</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .brand-logo{
+            width:40px;
+            height:40px;
+            object-fit:contain;
+            margin-right:12px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover { color: #8b5e3c !important; }
+
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .contact-box {
+            background: white;
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .contact-box h2 {
+            color: #5c3d2e;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 12px;
+            margin-bottom: 30px;
+        }
+
+        .contact-box h2::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: #c89b72;
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .form-label { font-weight: 500; color: #5c3d2e; }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 18px;
+            border: 1px solid rgba(74, 52, 38, 0.15);
+            background: #fbf9f6;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: #8b5e3c;
+            box-shadow: 0 0 0 0.25rem rgba(139, 94, 60, 0.15);
+            color: #4a3426;
+        }
+
+        textarea { resize: none; }
+
+        .main-btn {
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(200, 155, 114, 0.3);
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 100%;
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 94, 60, 0.4);
+        }
+
+        .info-card {
+            background: #efe4d8;
+            padding: 40px 35px;
+            border-radius: 30px;
+            height: 100%;
+            box-shadow: 0 8px 25px rgba(74, 52, 38, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .info-card h3, .info-card h4 { color: #5c3d2e; font-weight: 700; }
+        .info-link { color: #4a3426; text-decoration: none; transition: 0.3s; }
+        .info-link:hover { color: #8b5e3c; }
+
+        .coop-list { padding-left: 20px; }
+        .coop-list li { margin-bottom: 10px; color: #5c4738; position: relative; list-style-type: none; }
+        .coop-list li::before { content: "•"; color: #c89b72; display: inline-block; width: 1em; margin-left: -1em; }
+
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+        footer h4 { color: white; font-weight: 700; }
+
+        #toast-container .toast {
+            background: rgba(54, 36, 25, 0.95) !important;
+            border: 1px solid rgba(200, 155, 114, 0.3) !important;
+            color: #f6f1ea !important;
+            border-radius: 16px;
+        }
+
+        @media(max-width:768px) {
+            .contact-box { padding: 30px 20px; }
+            .hero { height: 300px; background-attachment: scroll; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <svg class="me-2" width="32" height="32" viewBox="0 0 500 500">
+                <circle cx="250" cy="250" r="220"
+                    fill="none"
+                    stroke="#c89b72"
+                    stroke-width="12"
+                    stroke-dasharray="15 8"/>
+
+                <circle cx="250" cy="250" r="200"
+                    fill="#fdfaf6"
+                    stroke="#8b5e3c"
+                    stroke-width="8"/>
+
+                <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z"
+                    fill="#8b5e3c"
+                    transform="translate(250,230)" />
+
+                <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z"
+                    fill="#c89b72"
+                    transform="translate(250,230)" />
+
+                <path d="M -5,-90 Q 20,-30 -20,10 T 5,90"
+                    fill="none"
+                    stroke="#fdfaf6"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                    transform="translate(250,230)" />
+
+                <circle cx="210" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="250" cy="365"
+                    r="30"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="290" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+            </svg>
+
+            <span data-i18n="nav_brand">
+                炭焙龍香・福興啡語
+            </span>
+
+        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav_home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html" data-i18n="nav_story">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav_mall">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html" data-i18n="nav_events">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html" data-i18n="nav_map">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html" data-i18n="nav_member">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1 data-i18n="hero_title">聯絡我們</h1>
+            <p class="mt-3 opacity-90" data-i18n="hero_desc">地方交流 × 品牌合作 × 活動諮詢</p>
+        </div>
+    </section>
+
+    <section class="py-5 my-4">
+        <div class="container">
+            <div class="row g-5">
+                
+                <!-- 左側：聯絡表單 -->
+                <div class="col-md-7" data-aos="fade-right" data-aos-delay="100">
+                    <div class="contact-box">
+                        <h2 data-i18n="form_title">聯絡表單</h2>
+                        <form id="contactForm">
+                            <div class="mt-4">
+                                <label class="form-label" data-i18n="label_name">姓名</label>
+                                <input type="text" id="formName" class="form-control mt-1" placeholder="請輸入您的姓名" required>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label" data-i18n="label_email">電子信箱</label>
+                                <input type="email" id="formEmail" class="form-control mt-1" placeholder="請輸入您的 Email" required>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label" data-i18n="label_subject">聯絡主題</label>
+                                <input type="text" id="formSubject" class="form-control mt-1" placeholder="請輸入聯絡主題" required>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label" data-i18n="label_message">留言內容</label>
+                                <textarea id="formMessage" class="form-control mt-1" rows="5" placeholder="請詳細輸入您想說的內容..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="main-btn mt-4" data-i18n="btn_submit">送出聯絡表單</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 右側：聯絡資訊 -->
+                <div class="col-md-5" data-aos="fade-left" data-aos-delay="200">
+                    <div class="info-card">
+                        <h3 data-i18n="info_title">聯絡資訊</h3>
+                        <div class="mt-4 opacity-90">
+                            <p class="mb-2"><strong data-i18n="info_base">生活據點：</strong>彰化縣大村鄉福興村</p>
+                            <p class="mb-2"><strong>Email：</strong><a href="mailto:longancoffee@gmail.com" class="info-link">longancoffee@gmail.com</a></p>
+                            <p class="mb-2"><strong data-i18n="info_phone">聯絡電話：</strong><a href="tel:04-1234-5678" class="info-link">04-1234-5678</a></p>
+                            <p class="mb-4"><strong data-i18n="info_time">服務時間：</strong>週一至週五 09:00 － 18:00</p>
+                        </div>
+
+                        <hr style="border-color: rgba(74, 52, 38, 0.2);">
+
+                        <h4 class="mt-4" data-i18n="coop_title">核心合作對象</h4>
+                        <ul class="coop-list mt-3">
+                            <li data-i18n="coop_1">大村鄉公所與村長辦公室創生對接</li>
+                            <li data-i18n="coop_2">大村在地農友龍眼木殘材循環經濟合作</li>
+                            <li data-i18n="coop_3">大專院校社區實踐與 USR 計畫</li>
+                            <li data-i18n="coop_4">外籍移工與國際學生多元文化交流活動策劃</li>
+                            <li data-i18n="coop_5">假日主題體驗市集與手作工坊進駐</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4 data-i18n="nav_brand">福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50" data-i18n="footer_sub">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Firebase 連接與多語系即時翻譯 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+        const firebaseConfig = window.__firebase_config ? JSON.parse(window.__firebase_config) : {
+            apiKey: "",
+            authDomain: "mock-project.firebaseapp.com",
+            projectId: "mock-project",
+            storageBucket: "mock-project.appspot.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'fuxing-coffee';
+
+        let userAuthenticated = false;
+
+        async function initAuth() {
+            try {
+                await signInAnonymously(auth);
+                userAuthenticated = true;
+            } catch (err) {
+                console.error("Firebase auth failed:", err);
+            }
+        }
+        initAuth();
+
+        // 監聽表單送出事件
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+
+            if (!userAuthenticated) {
+                showToast(currentLang === 'zh' ? '系統正在連線雲端，請稍後再試...' : 'Connecting to cloud, please try again...', 'danger');
+                return;
+            }
+
+            const name = document.getElementById('formName').value;
+            const email = document.getElementById('formEmail').value;
+            const subject = document.getElementById('formSubject').value;
+            const message = document.getElementById('formMessage').value;
+
+            try {
+                // 將資料寫入雲端 Firestore (路徑規則一)
+                const contactsCol = collection(db, 'artifacts', appId, 'public', 'data', 'contacts');
+                await addDoc(contactsCol, {
+                    name,
+                    email,
+                    subject,
+                    message,
+                    timestamp: new Date().toISOString()
+                });
+
+                const successMsg = {
+                    zh: `謝謝您，${name}！您的留言已成功存入雲端後台。`,
+                    en: `Thank you, ${name}! Your message has been saved to the cloud backend.`,
+                    id: `Terima kasih, ${name}! Pesan Anda telah disimpan di cloud.`,
+                    vn: `Cảm ơn bạn, ${name}! Tin nhắn của bạn đã được lưu vào hệ thống.`
+                };
+
+                showToast(successMsg[currentLang]);
+                document.getElementById('contactForm').reset();
+            } catch (error) {
+                console.error("Error storing contact message:", error);
+                showToast(currentLang === 'zh' ? '連線雲端資料庫失敗，請重試。' : 'Failed to connect to database.', 'danger');
+            }
+        });
+    </script>
+
+    <script>
+        const dictionary = {
+            zh: {
+                nav_brand: "炭焙龍香・福興啡語",
+                nav_home: "首頁", nav_story: "品牌故事", nav_mall: "商品商城", nav_events: "活動體驗", nav_map: "地圖導覽", nav_member: "會員中心", nav_contact: "聯絡我們",
+                hero_title: "聯絡我們", hero_desc: "地方交流 × 品牌合作 × 活動諮詢",
+                form_title: "聯絡表單", label_name: "姓名", label_email: "電子信箱", label_subject: "聯絡主題", label_message: "留言內容", btn_submit: "送出聯絡表單",
+                info_title: "聯絡資訊", info_base: "計畫基地：", info_phone: "聯絡電話：", info_time: "服務時間：",
+                coop_title: "核心合作對象", coop_1: "大村鄉公所與村長辦公室創生對接", coop_2: "大村在地農友龍眼木殘材循環經濟合作", coop_3: "大專院校社區實踐與 USR 計畫", coop_4: "外籍移工與國際學生多元文化交流活動策劃", coop_5: "假日主題體驗市集與手作工坊進駐",
+                footer_sub: "彰化縣大村鄉福興村地方創生計畫"
+            },
+            en: {
+                nav_brand: "Longan & Coffee • Fuxing",
+                nav_home: "Home", nav_story: "Story", nav_mall: "Mall", nav_events: "Events", nav_map: "Map", nav_member: "Members", nav_contact: "Contact",
+                hero_title: "Contact Us", hero_desc: "Local Exchange × Brand Co-op × Inquiries",
+                form_title: "Contact Form", label_name: "Name", label_email: "Email Address", label_subject: "Subject", label_message: "Message", btn_submit: "Submit Message",
+                info_title: "Contact Info", info_base: "Project Base: ", info_phone: "Phone Number: ", info_time: "Office Hours: ",
+                coop_title: "Key Collaboration Partners", coop_1: "Dacun Township Office & Village Chief Co-op", coop_2: "Circular economy partnership with local Longan growers", coop_3: "University Social Responsibility (USR) projects", coop_4: "Cultural exchange events for international workers/students", coop_5: "Weekend experiential market & workshops",
+                footer_sub: "Fuxing Village Local Revitalization Project, Dacun"
+            },
+            id: {
+                nav_brand: "Kopi Lengkeng • Fuxing",
+                nav_home: "Beranda", nav_story: "Cerita", nav_mall: "Mall", nav_events: "Aktivitas", nav_map: "Peta", nav_member: "Anggota", nav_contact: "Kontak",
+                hero_title: "Hubungi Kami", hero_desc: "Pertukaran Lokal × Kolaborasi × Konsultasi",
+                form_title: "Formulir Kontak", label_name: "Nama", label_email: "Alamat Email", label_subject: "Subjek", label_message: "Isi Pesan", btn_submit: "Kirim Formulir",
+                info_title: "Informasi Kontak", info_base: "Basis Proyek: ", info_phone: "Telepon: ", info_time: "Jam Kerja: ",
+                coop_title: "Mitra Kolaborasi Utama", coop_1: "Koneksi Kantor Kecamatan Dacun & Kepala Desa", coop_2: "Kerjasama ekonomi sirkular kayu lengkeng dengan petani", coop_3: "Proyek tanggung jawab sosial universitas (USR)", coop_4: "Perencanaan acara budaya untuk pekerja & mahasiswa asing", coop_5: "Pasar bertema akhir pekan & lokakarya kerajinan",
+                footer_sub: "Proyek Revitalisasi Desa Fuxing, Dacun"
+            },
+            vn: {
+                nav_brand: "Cà phê Nhãn • Phúc Hưng",
+                nav_home: "Trang chủ", nav_story: "Câu chuyện", nav_mall: "Cửa hàng", nav_events: "Sự kiện", nav_map: "Bản đồ", nav_member: "Hội viên", nav_contact: "Liên hệ",
+                hero_title: "Liên hệ", hero_desc: "Giao lưu địa phương × Hợp tác thương hiệu × Tư vấn hoạt động",
+                form_title: "Biểu mẫu liên hệ", label_name: "Họ và tên", label_email: "Địa chỉ Email", label_subject: "Chủ đề", label_message: "Nội dung tin nhắn", btn_submit: "Gửi liên hệ",
+                info_title: "Thông tin liên hệ", info_base: "Địa điểm dự án: ", info_phone: "Điện thoại: ", info_time: "Giờ làm việc: ",
+                coop_title: "Đối tác hợp tác chính", coop_1: "Kết nối hợp tác với UBND xã Đại Thôn và Trưởng thôn", coop_2: "Hợp tác kinh tế tuần hoàn phế liệu gỗ nhãn với nông dân", coop_3: "Dự án thực tiễn cộng đồng và USR của các trường đại học", coop_4: "Lên kế hoạch giao lưu văn hóa cho lao động & sinh viên nước ngoài", coop_5: "Tổ chức hội chợ trải nghiệm và workshop cuối tuần",
+                footer_sub: "Dự án Tái thiết Làng Phúc Hưng, Đại Thôn"
+            }
+        };
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    element.innerText = dictionary[lang][key];
+                }
+            });
+
+            // 更換輸入框 Placeholder
+            if (lang === 'en') {
+                document.getElementById('formName').placeholder = "Enter your name";
+                document.getElementById('formEmail').placeholder = "Enter your email";
+                document.getElementById('formSubject').placeholder = "Enter subject";
+                document.getElementById('formMessage').placeholder = "Type your message here...";
+            } else if (lang === 'id') {
+                document.getElementById('formName').placeholder = "Masukkan nama Anda";
+                document.getElementById('formEmail').placeholder = "Masukkan Email Anda";
+                document.getElementById('formSubject').placeholder = "Masukkan subjek";
+                document.getElementById('formMessage').placeholder = "Tulis isi pesan Anda di sini...";
+            } else if (lang === 'vn') {
+                document.getElementById('formName').placeholder = "Nhập họ tên của bạn";
+                document.getElementById('formEmail').placeholder = "Nhập Email của bạn";
+                document.getElementById('formSubject').placeholder = "Nhập chủ đề";
+                document.getElementById('formMessage').placeholder = "Nhập nội dung tin nhắn chi tiết...";
+            } else {
+                document.getElementById('formName').placeholder = "請輸入您的姓名";
+                document.getElementById('formEmail').placeholder = "請輸入您的 Email";
+                document.getElementById('formSubject').placeholder = "請輸入聯絡主題";
+                document.getElementById('formMessage').placeholder = "請詳細輸入您想說的內容...";
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white border-0 show m-2 bg-${type === 'danger' ? 'danger' : 'success'}`;
+            toast.role = 'alert';
+            toast.style.borderRadius = '12px';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body p-3">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ once: true, duration: 800 });
+            const savedLang = sessionStorage.getItem('preferred_language') || 'zh';
+            applyLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

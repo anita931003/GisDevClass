@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="nav_mall">商品商城｜福興龍眼咖啡</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .nav-link, .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* 標題美化 */
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: #4a3426;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: 'PRODUCT MALL';
+            display: block;
+            font-size: 11px;
+            color: #c89b72;
+            letter-spacing: 3px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        /* 精緻商品卡片優化 */
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            border: 1px solid rgba(74, 52, 38, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(74, 52, 38, 0.12);
+            border-color: rgba(200, 155, 114, 0.3);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+            background: #efe4d8;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .product-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-body h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .product-body p {
+            font-size: 14.5px;
+            color: #6b5344;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .price-tag {
+            font-size: 20px;
+            color: #8b5e3c;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .main-btn {
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: auto;
+            box-shadow: 0 4px 12px rgba(200, 155, 114, 0.2);
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(139, 94, 60, 0.3);
+        }
+
+        /* 計算器區塊樣式 */
+        .calculator-section {
+            background: #efe4d8;
+            border-radius: 30px;
+            padding: 45px;
+            margin-top: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.03);
+        }
+
+        .calc-input {
+            border-radius: 12px;
+            padding: 12px 18px;
+            border: 1px solid rgba(74, 52, 38, 0.15);
+            background: white;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .calc-input:focus {
+            border-color: #8b5e3c;
+            box-shadow: 0 0 0 0.25rem rgba(139, 94, 60, 0.15);
+            outline: none;
+        }
+
+        .calc-result-box {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(74, 52, 38, 0.05);
+            box-shadow: 0 4px 12px rgba(74, 52, 38, 0.01);
+        }
+
+
+
+        .calc-result-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #8b5e3c;
+            font-family: 'Noto Serif TC', serif;
+        }
+
+
+
+        /* Footer */
+
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+
+
+        /* 自製 Toast 氣泡通知 */
+        #toast-container .toast {
+            background: rgba(54, 36, 25, 0.95) !important;
+            border: 1px solid rgba(200, 155, 114, 0.3) !important;
+            color: #f6f1ea !important;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+
+        }
+        @media(max-width:768px) {
+            .calculator-section { padding: 30px 20px; }
+            .navbar-brand { font-size: 18px; }
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <svg class="me-2" width="32" height="32" viewBox="0 0 500 500">
+                <circle cx="250" cy="250" r="220"
+                    fill="none"
+                    stroke="#c89b72"
+                    stroke-width="12"
+                    stroke-dasharray="15 8"/>
+
+                <circle cx="250" cy="250" r="200"
+                    fill="#fdfaf6"
+                    stroke="#8b5e3c"
+                    stroke-width="8"/>
+
+                <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z"
+                    fill="#8b5e3c"
+                    transform="translate(250,230)" />
+
+                <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z"
+                    fill="#c89b72"
+                    transform="translate(250,230)" />
+
+                <path d="M -5,-90 Q 20,-30 -20,10 T 5,90"
+                    fill="none"
+                    stroke="#fdfaf6"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                    transform="translate(250,230)" />
+
+                <circle cx="210" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="250" cy="365"
+                    r="30"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="290" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+            </svg>
+
+            <span data-i18n="nav_brand">
+                炭焙龍香・福興啡語
+            </span>
+
+        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav_home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html" data-i18n="nav_story">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="product.html" data-i18n="nav_mall">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html" data-i18n="nav_events">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html" data-i18n="nav_map">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html" data-i18n="nav_member">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link " href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5" style="margin-top:120px;">
+        <h1 class="section-title" data-aos="fade-up" data-i18n="section_title">商品商城</h1>
+        <p class="text-center text-muted mb-5" data-aos="fade-up" data-aos-delay="50" data-i18n="section_subtitle">專注於「果」與「木」的深度開發，實踐福興村循環經濟與永續創生</p>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="product-card">
+                    <div class="product-img-wrapper">
+                        <img src="images/coffee_roasted.jpg" alt="龍木燻焙精品咖啡" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600'">
+                    </div>
+                    <div class="product-body">
+                        <h4 data-i18n="prod_1_title">「龍木燻焙」精品咖啡</h4>
+                        <p data-i18n="prod_1_desc">善用村內修剪下的既有龍眼木作為烘焙燃料，讓咖啡豆在烘焙中吸附獨特的果木煙燻香氣，將枯木殘材轉化為低碳永續的循環故事。</p>
+                        <div class="price-tag" data-i18n="prod_1_price">NT$ 450 / 半磅</div>
+                        <button class="main-btn" onclick="simulateAddToCart('「龍木燻焙」精品咖啡豆')" data-i18n="btn_add">加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-card">
+                    <div class="product-img-wrapper">
+                        <img src="images/dried_longan.jpg" alt="黑金龍眼咖啡果乾" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1596513320211-137b01859c7a?q=80&w=600'">
+                    </div>
+                    <div class="product-body">
+                        <h4 data-i18n="prod_2_title">「黑金」龍眼咖啡果乾</h4>
+                        <p data-i18n="prod_2_desc">將村內傳統龍眼乾剝殼後，浸漬於高濃度精品咖啡液中進行低溫乾燥。完美結合龍眼天然果甜與咖啡焦香，呈現具異國風味的Q彈口感。</p>
+                        <div class="price-tag" data-i18n="prod_2_price">NT$ 280 / 包</div>
+                        <button class="main-btn" onclick="simulateAddToCart('「黑金」龍眼咖啡果乾')" data-i18n="btn_add">加入購物車</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="product-card">
+                    <div class="product-img-wrapper">
+                        <img src="images/drip_bag.jpg" alt="啡龍風味隨身沖泡包" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600'">
+                    </div>
+                    <div class="product-body">
+                        <h4 data-i18n="prod_3_title">「啡龍」風味隨身沖泡包</h4>
+                        <p data-i18n="prod_3_desc">精選研磨咖啡粉完美融合乾燥龍眼碎肉之黃金比例。消費者直接沖泡即可飲用帶有溫潤龍眼香甜的特調咖啡，天然無額外添加糖分。</p>
+                        <div class="price-tag" data-i18n="prod_3_price">NT$ 350 / 盒(6入)</div>
+                        <button class="main-btn" onclick="simulateAddToCart('「啡龍」風味隨身沖泡包')" data-i18n="btn_add">加入購物車</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-section" data-aos="fade-up">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6">
+                    <h3 style="color:#5c3d2e; font-weight:700;" data-i18n="calc_title">「啡龍」黃金沖泡配方計算器</h3>
+                    <p class="text-muted mt-3 mb-0" data-i18n="calc_subtitle">
+                        由大葉大學 USR 計畫產學研發。輸入你擁有的精品咖啡粉重量（克），系統將自動依專利配方，精算最佳的乾燥龍眼碎肉配比與沖泡用水量！
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div class="calc-result-box">
+                        <div class="mb-4">
+                            <label class="form-label font-weight-bold" style="color:#5c3d2e;" data-i18n="calc_label_powder">咖啡粉重量 (g)：</label>
+                            <input type="number" id="coffeePowderInput" class="form-control calc-input" value="12" min="1" max="100" oninput="calculateGoldenRatio()">
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <div class="p-3 bg-light rounded-3 text-center">
+                                    <div class="small text-muted mb-1" data-i18n="calc_res_longan">乾燥龍眼碎肉</div>
+                                    <div class="calc-result-value" id="longanWeight">1.8 g</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-3 bg-light rounded-3 text-center">
+                                    <div class="small text-muted mb-1" data-i18n="calc_res_water">建議沖泡水量</div>
+                                    <div class="calc-result-value" id="waterVolume">180 ml</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <h4 data-i18n="nav_brand">福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50" data-i18n="footer_sub">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        const dictionary = {
+            zh: {
+                nav_brand: "炭焙龍香・福興啡語",
+                nav_home: "首頁", nav_story: "品牌故事", nav_mall: "商品商城", nav_events: "活動體驗", nav_map: "地圖導覽", nav_member: "會員中心", nav_contact: "聯絡我們",
+                section_title: "商品商城", section_subtitle: "專注於「果」與「木」的深度開發，實踐福興村循環經濟與永續創生",
+                prod_1_title: "「龍木燻焙」精品咖啡", prod_1_desc: "善用村內修剪下的既有龍眼木作為烘焙燃料，讓咖啡豆在烘焙中吸附獨特的果木煙燻香氣，將枯木殘材轉化為低碳永續的循環故事。", prod_1_price: "NT$ 450 / 半磅",
+                prod_2_title: "「黑金」龍眼咖啡果乾", prod_2_desc: "將村內傳統龍眼乾剝殼後，浸漬於高濃度精品咖啡液中進行低溫乾燥。完美結合龍眼天然果甜與咖啡焦香，呈現具異國風味的Q彈口感。", prod_2_price: "NT$ 280 / 包",
+                prod_3_title: "「啡龍」風味隨身沖泡包", prod_3_desc: "精選研磨咖啡粉完美融合乾燥龍眼碎肉之黃金比例。消費者直接沖泡即可飲用帶有溫潤龍眼香甜的特調咖啡，天然無額外添加糖分。", prod_3_price: "NT$ 350 / 盒(6入)",
+                btn_add: "加入購物車",
+                calc_title: "「啡龍」黃金沖泡配方計算器", calc_subtitle: "由大葉大學 USR 計畫產學研發。輸入你擁有的精品咖啡粉重量（克），系統將自動依專利配方，精算最佳的乾燥龍眼碎肉配比與沖泡用水量！",
+                calc_label_powder: "咖啡粉重量 (g)：", calc_res_longan: "乾燥龍眼碎肉", calc_res_water: "建議沖泡水量",
+                cart_added: "成功加入購物車！",
+                footer_sub: "彰化縣大村鄉福興村地方創生計畫"
+            }
+
+        };
+
+        function calculateGoldenRatio() {
+            const powder = parseFloat(document.getElementById('coffeePowderInput').value) || 0;
+            const longan = (powder * 0.15).toFixed(1);
+            const water = Math.round(powder * 15);
+            document.getElementById('longanWeight').innerText = `${longan} g`;
+            document.getElementById('waterVolume').innerText = `${water} ml`;
+        }
+        function simulateAddToCart(productName) {
+            showToast(`🛒 成功加入購物車！ —— [ ${productName} ]`);
+        }
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white border-0 show m-2`;
+            toast.innerHTML = `<div class="d-flex"><div class="toast-body p-3">${message}</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ once: true, duration: 800 });
+        });
+    </script>
+</body>
+</html>
