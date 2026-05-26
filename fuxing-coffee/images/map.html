@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地圖導覽｜福興龍眼咖啡</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS 滾動動畫庫 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+        .brand-logo{
+            width:40px;
+            height:40px;
+            object-fit:contain;
+            margin-right:12px;
+        }
+
+        .navbar-brand{
+            display:flex;
+            align-items:center;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* 地圖外殼優化 */
+        .map-box {
+            margin-top: 140px;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.05);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .map-box h1 {
+            color: #5c3d2e;
+            font-weight: 700;
+        }
+
+        /* 景點導覽卡片 */
+        .spot-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 6px 18px rgba(74, 52, 38, 0.03);
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden; /* 確保圖片圓角不溢出 */
+        }
+
+        .spot-card:hover, .spot-card.active {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 35px rgba(74, 52, 38, 0.1);
+            border-color: rgba(200, 155, 114, 0.3);
+            background: #fdfcfb;
+        }
+
+        /* 卡片圖片容器設計 */
+        .spot-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: #efe4d8;
+        }
+
+        .spot-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .spot-card:hover .spot-img {
+            transform: scale(1.08); /* 滑過時圖片優雅放大 */
+        }
+
+        /* 卡片文字區 */
+        .spot-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .spot-card h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .badge-theme {
+            background-color: #efe4d8;
+            color: #8b5e3c;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 13px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        /* 互動定位按鈕 */
+        .map-action-btn {
+            background: #efe4d8;
+            color: #8b5e3c;
+            border: 1px solid rgba(139, 94, 60, 0.15);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .map-action-btn:hover, .spot-card.active .map-action-btn {
+            background: #8b5e3c;
+            color: white;
+            border-color: #8b5e3c;
+            box-shadow: 0 4px 12px rgba(139, 94, 60, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+        #toast-container .toast {
+            background: rgba(54, 36, 25, 0.95) !important;
+            border: 1px solid rgba(200, 155, 114, 0.3) !important;
+            color: #f6f1ea !important;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+        }
+
+        @media(max-width: 768px) {
+            .map-box {
+                margin-top: 100px;
+                padding: 20px;
+            }
+            .spot-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <svg class="me-2" width="32" height="32" viewBox="0 0 500 500">
+                <circle cx="250" cy="250" r="220"
+                    fill="none"
+                    stroke="#c89b72"
+                    stroke-width="12"
+                    stroke-dasharray="15 8"/>
+
+                <circle cx="250" cy="250" r="200"
+                    fill="#fdfaf6"
+                    stroke="#8b5e3c"
+                    stroke-width="8"/>
+
+                <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z"
+                    fill="#8b5e3c"
+                    transform="translate(250,230)" />
+
+                <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z"
+                    fill="#c89b72"
+                    transform="translate(250,230)" />
+
+                <path d="M -5,-90 Q 20,-30 -20,10 T 5,90"
+                    fill="none"
+                    stroke="#fdfaf6"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                    transform="translate(250,230)" />
+
+                <circle cx="210" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="250" cy="365"
+                    r="30"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="290" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+            </svg>
+
+            <span data-i18n="nav_brand">
+                炭焙龍香・福興啡語
+            </span>
+
+        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav_home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html" data-i18n="nav_story">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav_mall">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html" data-i18n="nav_events">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="map.html" data-i18n="nav_map">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html" data-i18n="nav_member">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 地圖核心區塊 (預設直接經緯度定位大村鄉福興村中心，100% 避開鹿港福興鄉) -->
+    <div class="container">
+        <div class="map-box" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="mb-2 text-center" data-i18n="map_title">福興村活動場地導覽</h1>
+            <p class="text-center text-muted mb-4" data-i18n="map_subtitle">點擊下方活動場地，即時鎖定大村鄉福興村活動舉辦節點</p>
+            
+            <div class="ratio ratio-21x9" style="min-height: 450px;">
+                <iframe
+                    id="map-iframe"
+                    src="https://www.google.com/maps?q=23.990477,120.581515&output=embed"
+                    style="border:0; border-radius:20px;"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 未來體驗活動舉辦場地導覽說明 -->
+    <div class="container mt-5 pt-3">
+        <h3 class="mb-4 text-center text-md-start" data-aos="fade-up" style="color: #4a3426; font-weight: 700;">創生體驗活動場域規劃</h3>
+        <div class="row g-4">
+            
+            <!-- 場地 1：百年龍眼樹 -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <img src="images/fuxing-longan-tree.jpg" alt="百年龍眼樹" class="card-img-top">
+                    <div class="card-body p-4">
+                        <span class="badge bg-secondary mb-2">生態與歷史</span>
+                        <h4>福興百年龍眼樹</h4>
+                        <p class="text-muted small">位於友勝商行後方，見證福興村農業發展的活字典。此地為龍眼文化祭的核心展區，提供遊客沉浸於自然氛圍的體驗空間。(圖為AI生成)</p>
+                        <p class="small text-muted mt-2"><strong>📍 地址：</strong>彰化縣大村鄉福興村福興路（友勝商行後方）</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 場地 2：虎豆咖啡 -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <img src="images/tiger-coffee.jpg" alt="虎鬥咖啡" class="card-img-top">
+                    <div class="card-body p-4">
+                        <span class="badge bg-secondary mb-2">在地精品咖啡</span>
+                        <h4>虎豆咖啡</h4>
+                        <p class="text-muted small">環島騎士的休憩站，也是在地自家烘焙的精品咖啡廳。不僅是單純的咖啡館，更是推動在地友善農業與手沖咖啡文化的據點。(圖為AI生成)/(鄰近福興村之著名咖啡廳)</p>
+                        <p class="small text-muted mt-2"><strong>📍 地址：</strong>彰化縣大村鄉山腳路 47 之 21 號</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 場地 3：福興社區人文廟埕 -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                    <img src="images/fuxing-temple.jpg" alt="福興社區廟埕" class="card-img-top">
+                    <div class="card-body p-4">
+                        <span class="badge bg-secondary mb-2">在地信仰文化</span>
+                        <h4>福興社區人文廟埕</h4>
+                        <p class="text-muted small">福興村長者的日常休憩點與地方資訊傳遞中心。廟埕空間保留了濃厚的在地生活氣息，是連結居民情感與體驗村落文化的最佳視角。</p>
+                        <p class="small text-muted mt-2"><strong>📍 地址：</strong>彰化縣大村鄉福興村福興路鄰近地帶</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4 data-i18n="nav_brand">福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50" data-i18n="footer_sub">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- 核心功能腳本 -->
+    <script>
+        // 多語言翻譯字典
+        const dictionary = {
+            zh: {
+                nav_brand: "炭焙龍香・福興啡語",
+                nav_home: "首頁", nav_story: "品牌故事", nav_mall: "商品商城", nav_events: "活動體驗", nav_map: "地圖導覽", nav_member: "會員中心", nav_contact: "聯絡我們",
+                map_title: "福興村活動場地導覽", map_subtitle: "點擊下方活動場地，即時鎖定大村鄉福興村活動舉辦節點",
+                section_title: "創生體驗活動場域規劃",
+                label_addr: "地址", btn_locate: "在地圖中定位場地",
+                spot_1_badge: "一級產業結合場域",
+                spot_1_title: "古窯焙灶與示範果園園區",
+                spot_1_desc: "大村鄉最具代表性的百年傳統紅磚焙灶寮與龍眼示範果園。作為「啡龍在天採果祭」的主要場地，將於此進行傳統煙燻工法示範與精品咖啡採果教學體驗。",
+                spot_1_addr: "彰化縣大村鄉福興村福興路115號",
+                spot_2_badge: "低碳循環研發中心",
+                spot_2_title: "大葉大學USR「啡龍」創生基地",
+                spot_2_desc: "鄰近大村鄉福興村的大葉大學USR產學合作基地。作為「低碳農業論壇」的核心舉辦地，現場展示生物炭化餘熱再利用技術與精細手沖咖啡製程成果。",
+                spot_2_addr: "彰化縣大村鄉山腳路112巷19號",
+                spot_3_badge: "多元文化融合空間",
+                spot_3_title: "假日微風公有活化廣場",
+                spot_3_desc: "規劃活化福興村產權單純之公有土地。作為「東協啡香融合日暨創生市集」的活動場地，定期號召新住民、國際生與居民一同在咖啡香中交流互動。",
+                spot_3_addr: "彰化縣大村鄉福興村福興路與振興路交會處公有地",
+                footer_sub: "彰化縣大村鄉福興村地方創生計畫",
+                toast_msg: "地圖定位更新成功！已精確鎖定大村鄉福興村活動場域。"
+            },
+            en: {
+                nav_brand: "Longan & Coffee • Fuxing",
+                nav_home: "Home", nav_story: "Story", nav_mall: "Mall", nav_events: "Events", nav_map: "Map", nav_member: "Members", nav_contact: "Contact",
+                map_title: "Fuxing Event Venue Guide", map_subtitle: "Click below to locate active simulated future event venues instantly in Dacun Village",
+                section_title: "Revitalization Area Planning",
+                label_addr: "Address", btn_locate: "Locate Venue on Map",
+                spot_1_badge: "Primary Agri-Experience",
+                spot_1_title: "Traditional Kilns & Demo Orchard",
+                spot_1_desc: "Dacun's representative century-old traditional red brick kilns and longan orchards. Serving as the site for 'Coffee & Longan Picking Festival', hosting ancient smoking-dried crafts and fruit picking tours.",
+                spot_1_addr: "No. 115, Fuxing Rd., Dacun Township, Changhua County",
+                spot_2_badge: "Low-Carbon R&D Center",
+                spot_2_title: "Da-Yeh University USR 'Coffee' Hub",
+                spot_2_desc: "Da-Yeh University USR hub near Fuxing Village. Selected as the venue for 'Circular Agriculture Forum', demonstrating organic biochar technology and hand-brew roasting research.",
+                spot_2_addr: "No. 19, Lane 112, Sanjiao Rd., Dacun Township, Changhua County",
+                spot_3_badge: "Multicultural Integration Space",
+                spot_3_title: "Breeze Public Revitalization Square",
+                spot_3_desc: "Planned revitalized public land in Fuxing Village. Hosts the 'ASEAN Coffee Day & Revitalization Market' regularly, fostering local residents and migrant workers connection over coffee.",
+                spot_3_addr: "Public Land, Junction of Fuxing Rd. and Zhenxing Rd., Dacun Township",
+                footer_sub: "Fuxing Village Local Revitalization Project, Dacun",
+                toast_msg: "Map updated! Successfully centered on Dacun Fuxing Village venue."
+            },
+            id: {
+                nav_brand: "Kopi Lengkeng • Fuxing",
+                nav_home: "Beranda", nav_story: "Cerita", nav_mall: "Mall", nav_events: "Aktivitas", nav_map: "Peta", nav_member: "Anggota", nav_contact: "Kontak",
+                map_title: "Panduan Lokasi Kegiatan Fuxing", map_subtitle: "Klik kegiatan di bawah untuk menemukan lokasi simulasi di Desa Fuxing, Dacun secara instan",
+                section_title: "Rencana Area Revitalisasi",
+                label_addr: "Alamat", btn_locate: "Lokasikan Tempat di Peta",
+                spot_1_badge: "Integrasi Pertanian",
+                spot_1_title: "Tungku Tradisional & Kebun Lengkeng",
+                spot_1_desc: "Tungku bata merah tradisional berusia seabad paling representatif di Kecamatan Dacun. Tempat utama 'Festival Memetik & Seduh Lengkeng', menyelenggarakan pemrosesan kuno dan tur kebun.",
+                spot_1_addr: "No. 115, Fuxing Rd., Kecamatan Dacun, Kabupaten Changhua",
+                spot_2_badge: "Pusat Riset Ekonomi Sirkular",
+                spot_2_title: "Pusat Revitalisasi 'Kopi' USR DYU",
+                spot_2_desc: "Pusat USR Universitas Da-Yeh dekat Desa Fuxing. Terpilih sebagai lokasi 'Forum Tani Sirkular', memamerkan teknologi biochar dan riset pemanggangan kopi rendah karbon.",
+                spot_2_addr: "No. 19, Gang 112, Sanjiao Rd., Kecamatan Dacun, Kabupaten Changhua",
+                spot_3_badge: "Ruang Inklusi Budaya",
+                spot_3_title: "Lapang Publik Revitalisasi Breeze",
+                spot_3_desc: "Rencana lahan publik yang direvitalisasi di Desa Fuxing. Menyelenggarakan 'Hari Budaya Kopi ASEAN & Pasar Kreatif' untuk mempertemukan warga lokal dan pekerja migran.",
+                spot_3_addr: "Lahan Publik, Persimpangan Fuxing Rd. dan Tangerang Rd., Kecamatan Dacun",
+                footer_sub: "Proyek Revitalisasi Desa Fuxing, Dacun",
+                toast_msg: "Peta diperbarui! Berhasil mengunci lokasi kegiatan di Desa Fuxing, Dacun."
+            },
+            vn: {
+                nav_brand: "Cà phê Nhãn • Phúc Hưng",
+                nav_home: "Trang chủ", nav_story: "Câu chuyện", nav_mall: "Cửa hàng", nav_events: "Sự kiện", nav_map: "Bản đồ", nav_member: "Hội viên", nav_contact: "Liên hệ",
+                map_title: "Địa điểm sự kiện Phúc Hưng", map_subtitle: "Nhấp vào sự kiện bên dưới để định vị không gian tổ chức tại Xã Đại Thôn Phúc Hưng ngay",
+                section_title: "Quy hoạch không gian tái thiết",
+                label_addr: "Địa chỉ", btn_locate: "Định vị địa điểm trên bản đồ",
+                spot_1_badge: "Không gian tích hợp nông nghiệp",
+                spot_1_title: "Vườn nhãn sinh thái & Lò sấy truyền thống",
+                spot_1_desc: "Lò sấy gạch đỏ truyền thống hàng trăm năm tuổi tiêu biểu nhất xã Đại Thôn. Là địa điểm chính của 'Lễ hội hái nhãn và pha cà phê', tổ chức các lớp học và hái nhãn dã ngoại.",
+                spot_1_addr: "Số 115, Đường Phúc Hưng, Xã Đại Thôn, Huyện Chương Hóa",
+                spot_2_badge: "Trung tâm R&D nông nghiệp sạch",
+                spot_2_title: "Trạm đổi mới 'Cà phê & Nhãn' USR DYU",
+                spot_2_desc: "Trạm USR Đại học Đại Diệp lân cận Phúc Hưng. Là nơi diễn ra 'Diễn đàn nông nghiệp tuần hoàn', trình diễn công nghệ tái sử dụng củi nhãn và pha chế cà phê sạch.",
+                spot_2_addr: "Số 19, Ngõ 112, Đường Sơn Cước, Xã Đại Thôn, Huyện Chương Hóa",
+                spot_3_badge: "Không gian giao lưu đa văn hóa",
+                spot_3_title: "Quảng trường công cộng Breeze",
+                spot_3_desc: "Quy hoạch hồi sinh đất công cộng tại Phúc Hưng. Tổ chức 'Ngày hội giao lưu văn hóa cà phê ASEAN' định kỳ, tạo cơ hội cho lao động nước ngoài và người dân giao lưu.",
+                spot_3_addr: "Đất công cộng, Ngã ba đường Phúc Hưng và đường Chấn Hưng, Xã Đại Thôn",
+                footer_sub: "Dự án Tái thiết Làng Phúc Hưng, Đại Thôn",
+                toast_msg: "Đồng bộ bản đồ thành công! Đã định vị chính xác địa điểm sự kiện tại Đại Thôn Phúc Hưng."
+            }
+        };
+
+        // 即時地圖更新函式
+        function updateMapAddress(coords, cardId) {
+            const iframe = document.getElementById('map-iframe');
+            if (iframe) {
+                // 在背景直接使用經緯度 coordinates，100% 避免 Google Maps 導向鹿港福興鄉
+                iframe.src = `https://www.google.com/maps?q=${coords}&output=embed`;
+                
+                // 動態切換卡片的 active 高亮樣式
+                document.querySelectorAll('.spot-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                const selectedCard = document.getElementById(cardId);
+                if (selectedCard) {
+                    selectedCard.classList.add('active');
+                }
+
+                // 滑順滾動回頂端地圖區域，提升行動端體驗
+                window.scrollTo({
+                    top: document.querySelector('.map-box').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+
+                // 彈出精美 Toast 提示
+                const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+                showToast(dictionary[currentLang].toast_msg);
+            }
+        }
+
+        // 多語系切換套用
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    element.innerText = dictionary[lang][key];
+                }
+            });
+        }
+
+        // 自製 Toast 氣泡通知
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white border-0 show m-2`;
+            toast.role = 'alert';
+            toast.style.borderRadius = '12px';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body p-3">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                once: true,
+                duration: 800
+            });
+
+            // 讀取語系喜好
+            const savedLang = sessionStorage.getItem('preferred_language') || 'zh';
+            applyLanguage(savedLang);
+        });
+    </script>
+</body>
+
+</html>
+```
+eof

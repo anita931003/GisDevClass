@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福興龍眼咖啡 - 大村鄉福興村地方創生計畫</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS 滾動動畫庫 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Serif TC', 'Noto Sans TC', serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', 'Noto Sans TC', serif;
+            font-weight: 700;
+        }
+
+        /* Navbar 磨砂玻璃特效 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+    font-weight: 700;
+    font-size: 22px;
+    color: #5c3d2e !important;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* Hero 區塊 */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 140px 20px 80px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 72px);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 22px);
+            margin-top: 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .main-btn {
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(200, 155, 114, 0.4);
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 94, 60, 0.5);
+        }
+
+        /* 地方現況卡片 */
+        .info-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(74, 52, 38, 0.12);
+            border-color: rgba(200, 155, 114, 0.3);
+        }
+
+        .info-card h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .info-card h4::after {
+            content: '';
+            position: absolute;
+            width: 35px;
+            height: 3px;
+            background: #c89b72;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .info-card p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #6b5344;
+        }
+
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #4a3426;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: 'ISSUES';
+            display: block;
+            font-size: 12px;
+            color: #c89b72;
+            letter-spacing: 4px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .lang-btn {
+            border-radius: 50px;
+            margin: 6px;
+            padding: 6px 18px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #4a3426 !important;
+            border-color: white;
+        }
+
+        /* 頂層動態通知 */
+        #toast-container .toast {
+            background: rgba(54, 36, 25, 0.95) !important;
+            border: 1px solid rgba(200, 155, 114, 0.3) !important;
+            color: #f6f1ea !important;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        @media(max-width:768px){
+            .navbar-brand { font-size: 18px; }
+            .info-card { padding: 30px 20px; }
+            .hero { padding-top: 160px; background-attachment: scroll; }
+            .main-btn { display: block; width: 100%; margin-left: 0 !important; margin-bottom: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <svg class="me-2" width="32" height="32" viewBox="0 0 500 500">
+                <circle cx="250" cy="250" r="220"
+                    fill="none"
+                    stroke="#c89b72"
+                    stroke-width="12"
+                    stroke-dasharray="15 8"/>
+
+                <circle cx="250" cy="250" r="200"
+                    fill="#fdfaf6"
+                    stroke="#8b5e3c"
+                    stroke-width="8"/>
+
+                <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z"
+                    fill="#8b5e3c"
+                    transform="translate(250,230)" />
+
+                <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z"
+                    fill="#c89b72"
+                    transform="translate(250,230)" />
+
+                <path d="M -5,-90 Q 20,-30 -20,10 T 5,90"
+                    fill="none"
+                    stroke="#fdfaf6"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                    transform="translate(250,230)" />
+
+                <circle cx="210" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="250" cy="365"
+                    r="30"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="290" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+            </svg>
+
+            <span data-i18n="nav_brand">
+                炭焙龍香・福興啡語
+            </span>
+
+        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html" data-i18n="nav_home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html" data-i18n="nav_story">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav_mall">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html" data-i18n="nav_events">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html" data-i18n="nav_map">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html" data-i18n="nav_member">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link " href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 核心視覺區 -->
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1 data-i18n="hero_title">福興龍眼咖啡</h1>
+            <p data-i18n="hero_subtitle">Longan Coffee & Cultural Platform</p>
+            <p class="mt-3 fs-6 opacity-75" data-i18n="hero_desc">地方創生｜循環經濟｜多元文化共融</p>
+
+            <!-- 語言切換 -->
+            <div class="mt-4">
+                <button class="btn btn-outline-light lang-btn active" id="btn-zh" onclick="selectLanguage('zh')">中文</button>
+                <button class="btn btn-outline-light lang-btn" id="btn-en" onclick="selectLanguage('en')">English</button>
+                <button class="btn btn-outline-light lang-btn" id="btn-id" onclick="selectLanguage('id')">Bahasa</button>
+                <button class="btn btn-outline-light lang-btn" id="btn-vn" onclick="selectLanguage('vn')">Tiếng Việt</button>
+            </div>
+
+            <div class="mt-5">
+                <a href="product.html" class="text-decoration-none">
+                    <button class="main-btn" data-i18n="btn_mall">商品商城</button>
+                </a>
+                <a href="event.html" class="text-decoration-none">
+                    <button class="main-btn ms-3" data-i18n="btn_events">活動體驗</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 地方問題區塊 -->
+    <section class="py-5 my-5">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-i18n="issues_title">地方現況與問題</h2>
+            
+            <div class="row g-4">
+                <!-- 農業聚落 -->
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="info-card text-center">
+                        <h4 data-i18n="card_1_title">農業聚落</h4>
+                        <p class="mt-3" data-i18n="card_1_desc">福興村以龍眼等農業為主要產業，擁有極為深厚的傳統農村文化底蘊。</p>
+                    </div>
+                </div>
+
+                <!-- 龍眼木廢棄 -->
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info-card text-center">
+                        <h4 data-i18n="card_2_title">龍眼木廢棄</h4>
+                        <p class="mt-3" data-i18n="card_2_desc">每年果樹修剪後產生的大量龍眼木，過去多被視為殘材廢棄物，殊為可惜。</p>
+                    </div>
+                </div>
+
+                <!-- 青年外流 -->
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="info-card text-center">
+                        <h4 data-i18n="card_3_title">青年外流</h4>
+                        <p class="mt-3" data-i18n="card_3_desc">地方傳統產業面臨轉型瓶頸，缺乏新興就業機會，導致在地優秀青年人口持續外流。</p>
+                    </div>
+                </div>
+
+                <!-- 文化隔閡 -->
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="info-card text-center">
+                        <h4 data-i18n="card_4_title">文化隔閡</h4>
+                        <p class="mt-3" data-i18n="card_4_desc">社區內外籍移工與外籍學生比例逐年增加，卻苦無合適的在地文化交流與共融平台。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4 data-i18n="nav_brand">福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50" data-i18n="footer_sub">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Firebase與多語系即時翻譯腳本 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+        // Firebase Mock Fallback (由平台運行時注入實體金鑰)
+        const firebaseConfig = window.__firebase_config ? JSON.parse(window.__firebase_config) : {
+            apiKey: "",
+            authDomain: "mock-project.firebaseapp.com",
+            projectId: "mock-project",
+            storageBucket: "mock-project.appspot.com"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        async function initAuth() {
+            try {
+                await signInAnonymously(auth);
+            } catch (err) {
+                console.error("Auth sign-in failed:", err);
+            }
+        }
+        initAuth();
+    </script>
+
+    <script>
+        // 翻譯字典
+        const dictionary = {
+            zh: {
+                nav_brand: "炭焙龍香・福興啡語",
+                nav_home: "首頁", nav_story: "品牌故事", nav_mall: "商品商城", nav_events: "活動體驗", nav_map: "地圖導覽", nav_member: "會員中心", nav_contact: "聯絡我們",
+                hero_title: "福興龍眼咖啡", hero_subtitle: "Longan Coffee & Cultural Platform", hero_desc: "地方創生｜循環經濟｜多元文化共融",
+                btn_mall: "商品商城", btn_events: "活動體驗", issues_title: "地方現況與問題",
+                card_1_title: "農業聚落", card_1_desc: "福興村以龍眼等農業為主要產業，擁有極為深厚的傳統農村文化底蘊。",
+                card_2_title: "龍眼木廢棄", card_2_desc: "每年果樹修剪後產生的大量龍眼木，過去多被視為殘材廢棄物，殊為可惜。",
+                card_3_title: "青年外流", card_3_desc: "地方傳統產業面臨轉型瓶頸，缺乏新興就業機會，導致在地優秀青年人口持續外流。",
+                card_4_title: "文化隔閡", card_4_desc: "社區內外籍移工與外籍學生比例逐年增加，卻苦無合適的在地文化交流與共融平台。",
+                footer_sub: "彰化縣大村鄉福興村地方創生計畫",
+                toast_lang: "語言已切換至：繁體中文"
+            },
+            en: {
+                nav_brand: "Longan & Coffee • Fuxing",
+                nav_home: "Home", nav_story: "Story", nav_mall: "Mall", nav_events: "Events", nav_map: "Map", nav_member: "Members", nav_contact: "Contact",
+                hero_title: "Fuxing Longan Coffee", hero_subtitle: "Longan Coffee & Cultural Platform", hero_desc: "Revitalization | Circular Economy | Cultural Inclusivity",
+                btn_mall: "Product Mall", btn_events: "Events Experience", issues_title: "Local Challenges & Issues",
+                card_1_title: "Agri-Settlement", card_1_desc: "Fuxing Village is heavily rooted in agriculture like Longan, carrying deep traditional farming heritage.",
+                card_2_title: "Wood Waste", card_2_desc: "Pruned Longan branches every year were discarded as waste, posing environmental issues.",
+                card_3_title: "Youth Outflow", card_3_desc: "Traditional agriculture faces structural bottlenecks, driving youth out due to lack of jobs.",
+                card_4_title: "Cultural Gap", card_4_desc: "The migrant worker and student populations are rising, but lack a proper cultural integration platform.",
+                footer_sub: "Fuxing Village Local Revitalization Project, Dacun",
+                toast_lang: "Language switched to: English"
+            },
+            id: {
+                nav_brand: "Kopi Lengkeng • Fuxing",
+                nav_home: "Beranda", nav_story: "Cerita", nav_mall: "Mall", nav_events: "Aktivitas", nav_map: "Peta", nav_member: "Anggota", nav_contact: "Kontak",
+                hero_title: "Kopi Lengkeng Fuxing", hero_subtitle: "Longan Coffee & Cultural Platform", hero_desc: "Revitalisasi | Ekonomi Sirkular | Inklusi Budaya",
+                btn_mall: "Mal Produk", btn_events: "Pengalaman Aktivitas", issues_title: "Tantangan & Isu Lokal",
+                card_1_title: "Pemukiman Tani", card_1_desc: "Desa Fuxing sangat berakar pada pertanian Lengkeng, membawa warisan tani tradisional.",
+                card_2_title: "Limbah Kayu", card_2_desc: "Cabang kayu lengkeng yang dipangkas setiap tahun dibuang, memicu masalah pembakaran sampah.",
+                card_3_title: "Migrasi Pemuda", card_3_desc: "Pertanian tradisional menghadapi hambatan baru, memaksa kaum muda pergi karena minimnya loker.",
+                card_4_title: "Kesenjangan Budaya", card_4_desc: "Populasi pekerja migran & mahasiswa asing meningkat, namun belum ada wadah integrasi budaya.",
+                footer_sub: "Proyek Revitalisasi Desa Fuxing, Dacun",
+                toast_lang: "Bahasa diubah ke: Bahasa Indonesia"
+            },
+            vn: {
+                nav_brand: "Cà phê Nhãn • Phúc Hưng",
+                nav_home: "Trang chủ", nav_story: "Câu chuyện", nav_mall: "Cửa hàng", nav_events: "Sự kiện", nav_map: "Bản đồ", nav_member: "Hội viên", nav_contact: "Liên hệ",
+                hero_title: "Cà phê Nhãn Phúc Hưng", hero_subtitle: "Longan Coffee & Cultural Platform", hero_desc: "Tái thiết địa phương | Kinh tế tuần hoàn | Hòa nhập văn hóa",
+                btn_mall: "Trung tâm mua sắm", btn_events: "Trải nghiệm hoạt động", issues_title: "Thách thức & Vấn đề địa phương",
+                card_1_title: "Đô thị Nông nghiệp", card_1_desc: "Làng Phúc Hưng lấy nhãn làm nông nghiệp chính, có nền tảng văn hóa nông thôn sâu sắc.",
+                card_2_title: "Gỗ nhãn bị bỏ phí", card_2_desc: "Một lượng lớn gỗ nhãn sau khi cắt tỉa hàng năm từng bị coi là phế thải bỏ đi, thật đáng tiếc.",
+                card_3_title: "Thanh niên ly hương", card_3_desc: "Nông nghiệp đối mặt với nút thắt chuyển đổi, thiếu việc làm khiến thanh niên bỏ làng ra đi.",
+                card_4_title: "Rào cản văn hóa", card_4_desc: "Tỷ lệ lao động và sinh viên nước ngoài tăng dần, nhưng thiếu nền tảng giao lưu cộng đồng.",
+                footer_sub: "Dự án Tái thiết Làng Phúc Hưng, Đại Thôn",
+                toast_lang: "Ngôn ngữ đã đổi sang: Tiếng Việt"
+            }
+        };
+
+        // 選擇與套用語系
+        function selectLanguage(lang) {
+            sessionStorage.setItem('preferred_language', lang);
+            applyLanguage(lang);
+            showToast(dictionary[lang].toast_lang);
+        }
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    element.innerText = dictionary[lang][key];
+                }
+            });
+
+            // 切換按鈕 active 狀態
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`btn-${lang}`);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        // 自製精美 Toast 通知
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white border-0 show m-2`;
+            toast.role = 'alert';
+            toast.style.borderRadius = '12px';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body p-3">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ once: true, duration: 800 });
+            const savedLang = sessionStorage.getItem('preferred_language') || 'zh';
+            applyLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

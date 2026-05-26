@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌故事｜福興龍眼咖啡</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS 滾動動畫庫 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- favicon (改為SVG高解析度讀取) -->
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Serif TC', 'Noto Sans TC', serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+        }
+
+        /* Navbar 磨砂玻璃特效 (全站統一) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #8b5e3c !important;
+        }
+
+        /* Story 核心排版區 */
+        .story-container {
+            margin-top: 140px;
+            background: white;
+            border-radius: 30px;
+            padding: 55px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .img-story {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+        }
+
+        .section-badge {
+            background-color: #efe4d8;
+            color: #8b5e3c;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .lead-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #5c3d2e;
+            font-weight: 500;
+        }
+
+        .normal-text {
+            font-size: 15.5px;
+            line-height: 1.9;
+            color: #6b5344;
+            text-align: justify;
+        }
+
+        /* USR 專屬特色標籤 */
+        .badge-coop {
+            background: #fbf9f6;
+            color: #c89b72;
+            border: 1px solid rgba(200, 155, 114, 0.4);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .badge-coop:hover {
+            background: #c89b72;
+            color: white;
+        }
+
+        /* 品牌設計概念專區樣式 */
+        .logo-concept-box {
+            background: #efe4d8;
+            border-radius: 30px;
+            padding: 45px;
+            margin-top: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.03);
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            height: 100%;
+            box-shadow: 0 4px 15px rgba(74, 52, 38, 0.02);
+            border-left: 5px solid #8b5e3c;
+            transition: 0.3s;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(139, 94, 60, 0.1);
+        }
+
+        .concept-card h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+            font-size: 17.5px;
+            margin-bottom: 10px;
+        }
+
+        .concept-card p {
+            font-size: 14px;
+            color: #6b5344;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+
+        footer h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+        @media(max-width:768px) {
+            .story-container {
+                margin-top: 100px;
+                padding: 30px 20px;
+            }
+            .logo-concept-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <!-- 導覽列整合 Logo 與品牌字樣 -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <!-- 內置極輕量 inline SVG 圖標，確保 100% 讀取不破圖 -->
+                <svg class="me-2" width="32" height="32" viewBox="0 0 500 500">
+                    <circle cx="250" cy="250" r="220" fill="none" stroke="#c89b72" stroke-width="12" stroke-dasharray="15 8" />
+                    <circle cx="250" cy="250" r="200" fill="#fdfaf6" stroke="#8b5e3c" stroke-width="8" />
+                    <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z" fill="#8b5e3c" transform="translate(250, 230)" />
+                    <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z" fill="#c89b72" transform="translate(250, 230)" />
+                    <path d="M -5,-90 Q 20,-30 -20,10 T 5,90" fill="none" stroke="#fdfaf6" stroke-width="12" stroke-linecap="round" transform="translate(250, 230)" />
+                    <circle cx="210" cy="350" r="25" fill="#c89b72" stroke="#8b5e3c" stroke-width="4" />
+                    <circle cx="250" cy="365" r="30" fill="#c89b72" stroke="#8b5e3c" stroke-width="4" />
+                    <circle cx="290" cy="350" r="25" fill="#c89b72" stroke="#8b5e3c" stroke-width="4" />
+                </svg>
+                <span data-i18n="nav_brand">炭焙龍香・福興啡語</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav_home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="story.html" data-i18n="nav_story">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav_mall">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html" data-i18n="nav_events">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html" data-i18n="nav_map">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html" data-i18n="nav_member">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 品牌故事核心區 -->
+    <div class="container">
+        <div class="story-container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="row g-5 align-items-center">
+                
+                <!-- 左側：視覺圖像 (帶有 Unsplash 預備與 fallback 機制) -->
+                <div class="col-md-5">
+                    <img src="images/banner.jpg" alt="品牌故事主圖" class="img-story" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=600'">
+                </div>
+
+                <!-- 右側：品牌內涵論述 -->
+                <div class="col-md-7">
+                    <span class="section-badge" data-i18n="story_badge">土地的第二次生命</span>
+                    <h2 class="mb-4" style="color: #5c3d2e;" data-i18n="story_title">重塑福興：果與木的永續芬芳</h2>
+                    <p class="lead-text mb-4" data-i18n="story_lead">
+                        「炭焙龍香・福興啡語」是一場串聯大村鄉深厚農業情感與現代低碳製程的數位社會實踐。
+                    </p>
+
+                    <p class="normal-text mb-3" data-i18n="story_desc_1">
+                        彰化縣大村鄉福興村以頂級「粉殼龍眼」聞名。然而，每年例行果樹剪枝卻產生大量龍眼木殘材。過去，這些殘材多就地露天焚燒，給環境帶來沉重碳排壓力。為了回應這項在地痛點，本計畫融入循環經濟（Circular Economy）理念，將廢棄龍眼木回收轉化，變身為烘焙精品咖啡豆的天然燃料。
+                    </p>
+
+                    <p class="normal-text" data-i18n="story_desc_2">
+                        在傳統紅磚焙灶寮微弱溫暖的火光中，咖啡豆優雅地吸附了飽滿的果木煙燻柴燒香氣；我們更進一步利用精品咖啡液低溫浸漬大村乾龍眼，成功研發出代表族群融合的創意伴手禮。這套系統由大葉大學 USR 團隊深度合作支援，藉由多語系購物與導覽介面，為鄰近外籍移工、國際生與居民搭起無障礙的文化對話橋梁，完美體現 SDGs 永續包容社區的深遠願景。
+                    </p>
+
+                    <!-- USR 合作標籤群 -->
+                    <div class="mt-4 pt-3 border-top d-flex flex-wrap gap-2" style="border-color: rgba(74, 52, 38, 0.08) !important;">
+                        <span class="badge-coop" data-i18n="tag_1">#大村鄉福興村</span>
+                        <span class="badge-coop" data-i18n="tag_2">#循環經濟與低碳再生</span>
+                        <span class="badge-coop" data-i18n="tag_3">#多元文化共融平台</span>
+                        <span class="badge-coop" data-i18n="tag_4">#大葉大學USR合作</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心新增：品牌視覺識別與設計理念專區 (現場評審大亮點！) -->
+            <div class="logo-concept-box mt-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="row align-items-center g-5">
+                    
+                    <!-- 左欄：互動向量圖標現場極致顯影 -->
+                    <div class="col-md-4 text-center">
+                        <div class="p-4 bg-white rounded-4 shadow-sm d-inline-block" style="border: 1px solid rgba(74, 52, 38, 0.05);">
+                            <!-- 完美置入 100% 原始設計之互動向量 SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="220" height="220">
+                                <defs>
+                                    <radialGradient id="goldGrad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+                                        <stop offset="0%" stop-color="#f5d6b5" />
+                                        <stop offset="100%" stop-color="#c89b72" />
+                                    </radialGradient>
+                                    <linearGradient id="brownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#8b5e3c" />
+                                        <stop offset="100%" stop-color="#4a3426" />
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="250" cy="250" r="220" fill="none" stroke="#c89b72" stroke-width="6" stroke-dasharray="15 8" />
+                                <circle cx="250" cy="250" r="200" fill="#fdfaf6" stroke="#8b5e3c" stroke-width="4" />
+                                <g fill="#c89b72" opacity="0.8">
+                                    <path d="M 120,250 C 110,210 130,170 160,150 C 150,170 140,210 150,250 Z" />
+                                    <path d="M 380,250 C 390,210 370,170 340,150 C 350,170 360,210 350,250 Z" />
+                                </g>
+                                <g transform="translate(250, 230)">
+                                    <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z" fill="url(#brownGrad)" />
+                                    <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z" fill="url(#goldGrad)" />
+                                    <path d="M -5,-90 Q 20,-30 -20,10 T 5,90" fill="none" stroke="#fdfaf6" stroke-width="8" stroke-linecap="round" />
+                                </g>
+                                <g fill="#c89b72" stroke="#8b5e3c" stroke-width="2">
+                                    <circle cx="210" cy="350" r="18" fill="url(#goldGrad)" />
+                                    <circle cx="250" cy="365" r="22" fill="url(#goldGrad)" />
+                                    <circle cx="290" cy="350" r="18" fill="url(#goldGrad)" />
+                                </g>
+                                <path d="M 210,332 Q 250,345 290,332" fill="none" stroke="#8b5e3c" stroke-width="3" stroke-linecap="round" />
+                                <path d="M 250,345 L 250,330" fill="none" stroke="#8b5e3c" stroke-width="3" />
+                            </svg>
+                        </div>
+                        <div class="mt-3 small text-muted font-weight-bold" data-i18n="logo_concept_title">福興村地方創生專屬視覺標誌</div>
+                    </div>
+
+                    <!-- 右欄：設計理念四大層次解析 -->
+                    <div class="col-md-8">
+                        <h3 class="mb-4" style="color:#5c3d2e; font-weight:700;" data-i18n="logo_main_title">視覺標誌設計理念</h3>
+                        
+                        <div class="row g-3">
+                            <!-- 圓環 -->
+                            <div class="col-6">
+                                <div class="concept-card">
+                                    <h4 data-i18n="concept_1_h">古法磚窯外環</h4>
+                                    <p data-i18n="concept_1_p">外圈圓環象徵福興村傳統的紅磚焙灶寮。虛線紋路重現窯體磚瓦砌疊的軌跡，象徵對傳統農業歷史文化的守護與致敬。</p>
+                                </div>
+                            </div>
+                            <!-- 核心 -->
+                            <div class="col-6">
+                                <div class="concept-card">
+                                    <h4 data-i18n="concept_2_h">果與木的融合</h4>
+                                    <p data-i18n="concept_2_p">核心圖案完美將「咖啡豆」與金黃「龍眼果實」結合。一半暖褐、一半金黃，點出精品咖啡與在地農產加值的完美交織。</p>
+                                </div>
+                            </div>
+                            <!-- S裂紋 -->
+                            <div class="col-6">
+                                <div class="concept-card">
+                                    <h4 data-i18n="concept_3_h">炭焙煙燻曲線</h4>
+                                    <p data-i18n="concept_3_p">核心中央S型白色曲線，代表咖啡豆裂紋，同時勾勒出古窯焙灶在柴燒過程中，裊裊上升的龍眼木煙燻果木柴香。</p>
+                                </div>
+                            </div>
+                            <!-- 桂冠葉 -->
+                            <div class="col-6">
+                                <div class="concept-card">
+                                    <h4 data-i18n="concept_4_h">永續豐收桂冠</h4>
+                                    <p data-i18n="concept_4_p">下方點綴圓潤飽滿的三顆小龍眼乾，與兩側桂冠綠葉環繞，象徵大專院校 USR 產學注入，帶來永續社區與多元共融的豐收碩果。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4 data-i18n="nav_brand">炭焙龍香・福興啡語</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50" data-i18n="footer_sub">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- 核心多語系腳本 -->
+    <script>
+        const dictionary = {
+            zh: {
+                nav_brand: "炭焙龍香・福興啡語",
+                nav_home: "首頁", nav_story: "品牌故事", nav_mall: "商品商城", nav_events: "活動體驗", nav_map: "地圖導覽", nav_member: "會員中心", nav_contact: "聯絡我們",
+                story_badge: "土地的第二次生命",
+                story_title: "重塑福興：果與木的永續芬芳",
+                story_lead: "「炭焙龍香・福興啡語」是一場串聯大村鄉深厚農業情感與現代低碳製程的數位社會實踐。",
+                story_desc_1: "彰化縣大村鄉福興村以頂級「粉殼龍眼」聞名。然而，每年例行果樹剪枝卻產生大量龍眼木殘材。過去，這些殘材多就地露天焚燒，給環境帶來沉重碳排壓力。為了回應這項在地痛點，本計畫融入循環經濟（Circular Economy）理念，將廢棄龍眼木回收轉化，變身為烘焙精品咖啡豆的天然燃料。",
+                story_desc_2: "在傳統紅磚焙灶寮微弱溫暖的火光中，咖啡豆優雅地吸附了飽滿的果木煙燻柴燒香氣；我們更進一步利用精品咖啡液低溫浸漬大村乾龍眼，成功研發出代表族群融合的創意伴手禮。這套系統由大葉大學 USR 團隊深度合作支援，藉由多語系購物與導覽介面，為鄰近外籍移工、國際生與居民搭起無障礙的文化對話橋梁，完美體現 SDGs 永續包容社區的深遠願景。",
+                tag_1: "#大村鄉福興村", tag_2: "#循環經濟與低碳再生", tag_3: "#多元文化共融平台", tag_4: "#大葉大學USR合作",
+                logo_concept_title: "福興村地方創生專屬視覺標誌",
+                logo_main_title: "視覺標誌設計理念",
+                concept_1_h: "古法磚窯外環", concept_1_p: "外圈圓環象徵福興村傳統的紅磚焙灶寮。虛線紋路重現窯體磚瓦砌疊的軌跡，象徵對傳統農業歷史文化的守護與致敬。",
+                concept_2_h: "果與木的融合", concept_2_p: "核心圖案完美將「咖啡豆」與金黃「龍眼果實」結合。一半暖褐、一半金黃，點出精品咖啡與在地農產加值的完美交織。",
+                concept_3_h: "炭焙煙燻曲線", concept_3_p: "核心中央S型白色曲線，代表咖啡豆裂紋，同時勾勒出古窯焙灶在柴燒過程中，裊裊上升的龍眼木煙燻果木柴香。",
+                concept_4_h: "永續豐收桂冠", concept_4_p: "下方點綴圓潤飽滿的三顆小龍眼乾，與兩側桂冠綠葉環繞，象徵大專院校 USR 產學注入，帶來永續社區與多元共融的豐收碩果。",
+                footer_sub: "彰化縣大村鄉福興村地方創生計畫"
+            },
+            en: {
+                nav_brand: "Longan & Coffee • Fuxing",
+                nav_home: "Home", nav_story: "Story", nav_mall: "Mall", nav_events: "Events", nav_map: "Map", nav_member: "Members", nav_contact: "Contact",
+                story_badge: "The Second Life of the Land",
+                story_title: "Remaking Fuxing: Sustainable Aroma of Fruit and Wood",
+                story_lead: "\"Longan Wood Baking & Coffee Fuxing\" is a digital social practice connecting Dacun's agricultural roots with modern low-carbon processing.",
+                story_desc_1: "Fuxing Village, Dacun Township, Changhua is famous for its premium 'powder-shell' longans. However, annual pruning generates huge wood residue, which was traditionally burnt in open air, posing high carbon emission issues. To address this pain point, we recycle and transform this wood waste as clean fuel for roasting specialty coffee.",
+                story_desc_2: "In the gentle warmth of traditional red brick kilns, coffee beans elegantly absorb the deep aroma of fruitwood smoke. We also infuse Dacun dried longans with concentrated coffee extract, creating a novel gift that reflects cultural inclusion. Supported by Da-Yeh University USR, our multilingual platform welcomes international workers, students, and residents to share a common space, fulfilling the goals of SDGs.",
+                tag_1: "#Fuxing Dacun", tag_2: "#Circular Economy & Low Carbon", tag_3: "#Multicultural Platform", tag_4: "#Da-Yeh USR Partnership",
+                logo_concept_title: "Exclusive Visual Logo of Fuxing Village Revitalization",
+                logo_main_title: "Visual Logo Design Concept",
+                concept_1_h: "Traditional Brick Kiln Ring", concept_1_p: "The outer dashed loop represents traditional red brick kilns in Fuxing. This design pattern pays homage to the local historic farming methods.",
+                concept_2_h: "Fusion of Fruit & Wood", concept_2_p: "The core graphic gracefully merges a select 'coffee bean' with a golden 'longan fruit', symbolizing agricultural high-value product innovation.",
+                concept_3_h: "Baking Smoke Lines", concept_3_p: "The white S-curve highlights the center line of the coffee bean while mimicking rising fruitwood smoke during ancient wood-fired baking.",
+                concept_4_h: "Sustainable Harvest Laurel", concept_4_p: "Three golden longan dried fruits and adjacent laurel foliage celebrate Da-Yeh University USR partnership yielding fruitful community empowerment.",
+                footer_sub: "Fuxing Village Local Revitalization Project, Dacun"
+            },
+            id: {
+                nav_brand: "Kopi Lengkeng • Fuxing",
+                nav_home: "Beranda", nav_story: "Cerita", nav_mall: "Mall", nav_events: "Aktivitas", nav_map: "Peta", nav_member: "Anggota", nav_contact: "Kontak",
+                story_badge: "Kehidupan Kedua Tanah",
+                story_title: "Membangun Kembali Fuxing: Aroma Berkelanjutan",
+                story_lead: "\"Kopi Lengkeng Fuxing\" adalah praktik sosial digital yang menghubungkan akar tani Dacun dengan teknologi rendah karbon.",
+                story_desc_1: "Desa Fuxing terkenal dengan buah lengkeng premium. Namun, sisa dahan pangkas setiap tahun dibakar di udara terbuka, menghasilkan polusi karbon. Kami mendaur ulang kayu limbah ini sebagai bahan bakar bersih untuk menyangrai biji kopi pilihan.",
+                story_desc_2: "Dalam kehangatan tradisional bata merah, biji kopi menyerap aroma kayu lengkeng secara alami. Kami juga merendam buah lengkeng kering dengan kopi murni untuk oleh-oleh inovatif yang menyatukan rasa. Didukung USR Universitas Da-Yeh, sistem multibahasa ini menyambut pekerja migran, mahasiswa asing, dan warga desa untuk berbaur, memenuhi SDGs.",
+                tag_1: "#Fuxing Dacun", tag_2: "#Ekonomi Sirkular & Rendah Karbon", tag_3: "#Platform Multikultural", tag_4: "#Kolaborasi USR DYU",
+                logo_concept_title: "Logo Eksklusif Revitalisasi Desa Fuxing",
+                logo_main_title: "Konsep Desain Logo Visual",
+                concept_1_h: "Lingkaran Tungku Bata Kuno", concept_1_p: "Loop putus-putus mewakili tungku bata merah tradisional di Fuxing. Ini melambangkan perlindungan terhadap sejarah tani daerah.",
+                concept_2_h: "Penyatuan Biji & Lengkeng", concept_2_p: "Menggabungkan separuh biji kopi pilihan dengan separuh buah lengkeng kering emas, menandai terobosan rasa kopi tani inovatif.",
+                concept_3_h: "Asap Pemanggangan S-Line", concept_3_p: "Garis S putih melambangkan celah biji kopi sekaligus kepulan asap beraroma kayu lengkeng hangat dari tungku sấy.",
+                concept_4_h: "Mahkota Panen Melimpah", concept_4_p: "Tiga buah lengkeng emas dan dedaunan laurel melambangkan kolaborasi USR Universitas membawa kemakmuran dan kebersamaan komunitas.",
+                footer_sub: "Proyek Revitalisasi Desa Fuxing, Dacun"
+            },
+            vn: {
+                nav_brand: "Cà phê Nhãn • Phúc Hưng",
+                nav_home: "Trang chủ", nav_story: "Câu chuyện", nav_mall: "Cửa hàng", nav_events: "Sự kiện", nav_map: "Bản đồ", nav_member: "Hội viên", nav_contact: "Liên hệ",
+                story_badge: "Cuộc sống thứ hai của Đất",
+                story_title: "Tái tạo Phúc Hưng: Hương thơm bền vững",
+                story_lead: "\"Cà phê Nhãn Phúc Hưng\" là hoạt động xã hội kỹ thuật số kết nối nguồn cội nông nghiệp Đại Thôn với quy trình sạch các-bon thấp.",
+                story_desc_1: "Làng Phúc Hưng nổi tiếng với nhãn chất lượng cao. Tuy nhiên, cành tỉa hàng năm thường bị đốt lộ thiên gây ô nhiễm. Chúng tôi tái chế gỗ thải làm nhiên liệu sạch để rang hạt cà phê đặc sản.",
+                story_desc_2: "Trong lò gạch đỏ truyền thống ấm áp, hạt cà phê hấp thụ hương khói củi nhãn tự nhiên. Chúng tôi còn ngâm nhãn khô với nước cà phê đậm đặc tạo nên món quà độc đáo giao thoa văn hóa. Được USR Đại học Đại Diệp hỗ trợ, nền tảng đa ngôn ngữ này giúp lao động nước ngoài, sinh viên quốc tế và người dân xích lại gần nhau, hiện thực hóa SDGs.",
+                tag_1: "#Phúc Hưng Đại Thôn", tag_2: "#Kinh tế tuần hoàn & Ít các-bon", tag_3: "#Bình đẳng văn hóa", tag_4: "#Hợp tác USR DYU",
+                logo_concept_title: "Logo trực quan độc quyền của dự án tái thiết Phúc Hưng",
+                logo_main_title: "Ý tưởng thiết kế Logo thương hiệu",
+                concept_1_h: "Vòng lò gạch cổ xưa", concept_1_p: "Vòng nét đứt tượng trưng cho những lò sấy gạch đỏ truyền thống ở Phúc Hưng, thể hiện sự bảo tồn nét văn hóa nông nghiệp lâu đời.",
+                concept_2_h: "Sự giao thoa hạt và nhãn", concept_2_p: "Sự kết hợp hoàn hảo giữa một nửa hạt cà phê rang củi và một nửa quả nhãn vàng, tôn vinh giá trị gia tăng nông sản địa phương.",
+                concept_3_h: "Đường khói sấy chữ S", concept_3_p: "Đường cong chữ S màu trắng tượng trưng cho khe rãnh hạt cà phê đồng thời mô phỏng làn khói tỏa thơm mát từ củi gỗ nhãn.",
+                concept_4_h: "Vòng nguyệt quế bội thu", concept_4_p: "Ba quả nhãn vàng bên dưới và nhánh nguyệt quế hai bên đại diện cho sự đồng hành USR mang lại quả ngọt hạnh phúc và bền vững xã hội.",
+                footer_sub: "Dự án Tái thiết Làng Phúc Hưng, Đại Thôn"
+            }
+        };
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    element.innerText = dictionary[lang][key];
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ once: true, duration: 800 });
+            const savedLang = sessionStorage.getItem('preferred_language') || 'zh';
+            applyLanguage(savedLang);
+        });
+    </script>
+</body>
+
+</html>

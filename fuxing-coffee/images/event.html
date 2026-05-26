@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動體驗｜福興龍眼咖啡</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1,h2,h3,h4,.navbar-brand,.section-title {
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 700;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover { color: #8b5e3c !important; }
+
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #4a3426;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: 'EXPERIENCE';
+            display: block;
+            font-size: 12px;
+            color: #c89b72;
+            letter-spacing: 4px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            border: 1px solid rgba(74, 52, 38, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(74, 52, 38, 0.12);
+            border-color: rgba(200, 155, 114, 0.3);
+        }
+
+        .event-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .event-card:hover img { transform: scale(1.05); }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(139, 94, 60, 0.9);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .event-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .event-body h3 {
+            color: #5c3d2e;
+            font-weight: 700;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .event-body p { font-size: 15px; color: #6b5344; line-height: 1.6; }
+
+        .event-info-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 20px 0;
+            background: #fbf9f6;
+            padding: 15px;
+            border-radius: 14px;
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .event-info-list li {
+            font-size: 14px;
+            color: #5c4738;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .event-info-list li::before {
+            content: "◆";
+            color: #c89b72;
+            font-size: 10px;
+            margin-right: 8px;
+        }
+
+        .main-btn {
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: auto;
+            box-shadow: 0 4px 12px rgba(200, 155, 114, 0.2);
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(139, 94, 60, 0.3);
+        }
+
+        /* 實時動態看板樣式 */
+        .live-dashboard {
+            background: #efe4d8;
+            border-radius: 30px;
+            padding: 40px;
+            margin-top: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.03);
+        }
+
+        .live-badge {
+            background: #8b5e3c;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .booking-item {
+            background: white;
+            border-radius: 14px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(74, 52, 38, 0.02);
+            border-left: 5px solid #c89b72;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+        footer h4 { color: white; font-weight: 700; }
+
+        #toast-container .toast {
+            background: rgba(54, 36, 25, 0.95) !important;
+            border: 1px solid rgba(200, 155, 114, 0.3) !important;
+            color: #f6f1ea !important;
+            border-radius: 16px;
+        }
+
+        @media(max-width:768px) {
+            .hero { height: 300px; background-attachment: scroll; }
+            .event-body { padding: 20px; }
+            .live-dashboard { padding: 25px 15px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <svg class="me-2" width="32" height="32" viewBox="0 0 500 500">
+                <circle cx="250" cy="250" r="220"
+                    fill="none"
+                    stroke="#c89b72"
+                    stroke-width="12"
+                    stroke-dasharray="15 8"/>
+
+                <circle cx="250" cy="250" r="200"
+                    fill="#fdfaf6"
+                    stroke="#8b5e3c"
+                    stroke-width="8"/>
+
+                <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z"
+                    fill="#8b5e3c"
+                    transform="translate(250,230)" />
+
+                <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z"
+                    fill="#c89b72"
+                    transform="translate(250,230)" />
+
+                <path d="M -5,-90 Q 20,-30 -20,10 T 5,90"
+                    fill="none"
+                    stroke="#fdfaf6"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                    transform="translate(250,230)" />
+
+                <circle cx="210" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="250" cy="365"
+                    r="30"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="290" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+            </svg>
+
+            <span data-i18n="nav_brand">
+                炭焙龍香・福興啡語
+            </span>
+
+        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav_home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html" data-i18n="nav_story">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav_mall">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="event.html" data-i18n="nav_events">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html" data-i18n="nav_map">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link" href="member.html" data-i18n="nav_member">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link " href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero -->
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1 data-i18n="hero_title">活動體驗</h1>
+            <p class="mt-3 opacity-90" data-i18n="hero_desc">地方文化 × 多元交流 × 農村生活</p>
+        </div>
+    </section>
+
+    <!-- 活動列表 -->
+    <section class="py-5 my-4">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up" data-i18n="section_title">年度活動企劃</h2>
+
+            <div class="row g-4">
+                <!-- 採果 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="event-card">
+                        <div class="event-img-wrapper">
+                            <img src="images/event1.jpg" alt="龍眼採果體驗">
+                            <span class="status-badge" data-i18n="status_open">開放報名中</span>
+                        </div>
+                        <div class="event-body">
+                            <h3 data-i18n="event_1_title">龍眼採果體驗</h3>
+                            <p class="mt-2" data-i18n="event_1_desc">體驗福興村結實纍纍的龍眼採收文化，親身走進果園深處，認識地方歷史悠久的傳統農業與純樸的農村生活方式。</p>
+                            
+                            <ul class="event-info-list">
+                                <li><strong data-i18n="info_date">活動日期：</strong>2026 / 07 / 15</li>
+                                <li><strong data-i18n="info_loc">活動地點：</strong>大村鄉福興村特約龍眼園</li>
+                                <li><strong data-i18n="info_limit">活動人數：</strong>限額 30 人</li>
+                            </ul>
+                            
+                            <button class="main-btn" onclick="triggerBooking('龍眼採果體驗')" data-i18n="btn_book_1">立即線上報名</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工作坊 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="event-card">
+                        <div class="event-img-wrapper">
+                            <img src="images/coffee1.jpg" alt="手沖咖啡工作坊">
+                            <span class="status-badge" style="background: #a97c55;" data-i18n="status_full">即將額滿</span>
+                        </div>
+                        <div class="event-body">
+                            <h3 data-i18n="event_2_title">手沖咖啡工作坊</h3>
+                            <p class="mt-2" data-i18n="event_2_desc">由在地烘豆師指導，學習基礎至進階的精品咖啡沖泡技巧，深度品味與認識福興村獨特的龍眼木炭焙風味與循環經濟理念。</p>
+                            
+                            <ul class="event-info-list">
+                                <li><strong data-i18n="info_date">活動日期：</strong>2026 / 08 / 10</li>
+                                <li><strong data-i18n="info_loc">活動地點：</strong>福興社區活動中心二樓</li>
+                                <li><strong data-i18n="info_limit">活動人數：</strong>限額 20 人</li>
+                            </ul>
+                            
+                            <button class="main-btn" onclick="triggerBooking('手沖咖啡工作坊')" data-i18n="btn_book_2">我要保留名額</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 交流日 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="event-card">
+                        <div class="event-img-wrapper">
+                            <img src="images/foreign-worker.jpg" alt="東南亞文化交流日">
+                            <span class="status-badge" style="background: #5c4738;" data-i18n="status_soon">即將開放</span>
+                        </div>
+                        <div class="event-body">
+                            <h3 data-i18n="event_3_title">東南亞文化交流日</h3>
+                            <p class="mt-2" data-i18n="event_3_desc">特別邀請在地產業的外籍移工與鄰近學校之國際學生，與福興村居民共同參與，透過異國美食、民俗展演與咖啡落實多元文化共融。</p>
+                            
+                            <ul class="event-info-list">
+                                <li><strong data-i18n="info_date">活動日期：</strong>2026 / 09 / 05</li>
+                                <li><strong data-i18n="info_loc">活動地點：</strong>福興村中央廣場合作場域</li>
+                                <li><strong data-i18n="info_limit">活動人數：</strong>限額 50 人</li>
+                            </ul>
+                            
+                            <button class="main-btn" onclick="triggerBooking('東南亞文化交流日')" data-i18n="btn_book_3">查看活動詳情</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 實時雲端報名動態看板 -->
+            <div class="live-dashboard" data-aos="fade-up">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="m-0" data-i18n="live_title" style="color:#5c3d2e; font-weight:700;">最新報名實時動態</h3>
+                    <span class="live-badge" data-i18n="live_badge">LIVE 後台同步中</span>
+                </div>
+                <div id="live-bookings-list">
+                    <div class="text-center py-3 text-muted" data-i18n="live_loading">正在載入雲端動態...</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 報名資訊填寫 Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background:#f6f1ea; border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title font-weight-bold" id="modalEventName" style="color:#5c3d2e;">報名活動</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="bookingForm">
+                        <input type="hidden" id="bookingEvent">
+                        <div class="mb-3">
+                            <label class="form-label" data-i18n="modal_name">您的姓名</label>
+                            <input type="text" class="form-control" id="bookingName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" data-i18n="modal_phone">電話號碼</label>
+                            <input type="tel" class="form-control" id="bookingPhone" required>
+                        </div>
+                        <button type="submit" class="main-btn w-100 mt-2" data-i18n="modal_confirm">送出報名資料</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4 data-i18n="nav_brand">福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50" data-i18n="footer_sub">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Firebase與實時監聽看板核心 JavaScript -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+        const firebaseConfig = window.__firebase_config ? JSON.parse(window.__firebase_config) : {
+            apiKey: "",
+            authDomain: "mock-project.firebaseapp.com",
+            projectId: "mock-project",
+            storageBucket: "mock-project.appspot.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'fuxing-coffee';
+
+        let userAuthenticated = false;
+
+        // 初始化驗證
+        async function initAuth() {
+            try {
+                await signInAnonymously(auth);
+                userAuthenticated = true;
+                startLiveDashboardListener(); // 驗證完成後開啟實時看板
+            } catch (err) {
+                console.error("Auth sign-in failed:", err);
+            }
+        }
+        initAuth();
+
+        // 開啟實時動態監聽看板 (RULE 2: 不作複雜 query，直接在記憶體中處理)
+        function startLiveDashboardListener() {
+            const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'event_bookings');
+            
+            // 實時更新前5筆報名動態 (RULE 2)
+            onSnapshot(bookingsCol, (snapshot) => {
+                const listContainer = document.getElementById('live-bookings-list');
+                if (!listContainer) return;
+
+                let bookings = [];
+                snapshot.forEach(doc => {
+                    bookings.push(doc.data());
+                });
+
+                // 在前端排序 (按時間由新到舊) 確保安全編譯
+                bookings.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                const recentBookings = bookings.slice(0, 5); // 只要前5筆
+
+                const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+
+                if (recentBookings.length === 0) {
+                    listContainer.innerHTML = `
+                        <div class="text-center py-3 text-muted">
+                            ${currentLang === 'zh' ? '目前尚未有報名動態，快來成為第一個報名者吧！' : 'No booking dynamic yet. Be the first one to register!'}
+                        </div>`;
+                    return;
+                }
+
+                listContainer.innerHTML = recentBookings.map(item => {
+                    const maskName = item.name.length > 2 ? item.name[0] + "〇" + item.name[item.name.length - 1] : item.name[0] + "〇";
+                    const displayEvent = translateEventName(item.event, currentLang);
+                    const actionWord = { zh: "完成報名", en: "registered", id: "telah mendaftar", vn: "đã đăng ký thành công" }[currentLang];
+                    return `
+                        <div class="booking-item">
+                            <div>
+                                <strong style="color: #8b5e3c;">${maskName}</strong> 
+                                <span class="ms-2 text-muted">${actionWord} —— <strong>${displayEvent}</strong></span>
+                            </div>
+                            <span class="small text-muted opacity-75">${formatTime(item.timestamp)}</span>
+                        </div>
+                    `;
+                }).join('');
+            }, (error) => {
+                console.error("Dashboard monitor error:", error);
+            });
+        }
+
+        // 活動名稱多語系轉換
+        function translateEventName(eventName, lang) {
+            const mappings = {
+                '龍眼採果體驗': { zh: '龍眼採果體驗', en: 'Longan Fruit Picking', id: 'Petik Lengkeng', vn: 'Trải nghiệm nhổ nhãn' },
+                '手沖咖啡工作坊': { zh: '手沖咖啡工作坊', en: 'Pour-Over Coffee Workshop', id: 'Workshop Kopi manual', vn: 'Lớp học cà phê thủ công' },
+                '東南亞文化交流日': { zh: '東南亞文化交流日', en: 'Southeast Asian Cultural Day', id: 'Hari Budaya Asia Tenggara', vn: 'Ngày giao lưu văn hóa Đông Nam Á' }
+            };
+            return mappings[eventName] ? mappings[eventName][lang] : eventName;
+        }
+
+        function formatTime(isoString) {
+            try {
+                const date = new Date(isoString);
+                return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+            } catch {
+                return '';
+            }
+        }
+
+        // 表單提交報名
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+
+            if (!userAuthenticated) {
+                showToast(currentLang === 'zh' ? '系統正與雲端對接，請稍後...' : 'Connecting to Cloud...', 'danger');
+                return;
+            }
+
+            const name = document.getElementById('bookingName').value;
+            const phone = document.getElementById('bookingPhone').value;
+            const event = document.getElementById('bookingEvent').value;
+
+            try {
+                const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'event_bookings');
+                await addDoc(bookingsCol, {
+                    name,
+                    phone,
+                    event,
+                    timestamp: new Date().toISOString()
+                });
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+                modal.hide();
+
+                const successMsg = {
+                    zh: `恭喜您，${name}！您的「${event}」名額已成功寫入雲端！`,
+                    en: `Congrats ${name}! Your slot for "${translateEventName(event, 'en')}" is reserved on Cloud!`,
+                    id: `Selamat ${name}! Kursi Anda untuk "${translateEventName(event, 'id')}" telah dipesan di cloud!`,
+                    vn: `Chúc mừng ${name}! Chỗ của bạn tại "${translateEventName(event, 'vn')}" đã đăng ký vào hệ thống!`
+                };
+
+                showToast(successMsg[currentLang]);
+                document.getElementById('bookingForm').reset();
+            } catch (err) {
+                console.error("Error creating booking:", err);
+                showToast(currentLang === 'zh' ? '報名失敗，請確認網路連線。' : 'Booking failed. Try again.', 'danger');
+            }
+        });
+    </script>
+
+    <script>
+        // Modal 動態綁定
+        function triggerBooking(eventName) {
+            const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+            const translatedEvent = {
+                '龍眼採果體驗': { zh: '龍眼採果體驗', en: 'Longan Fruit Picking', id: 'Petik Lengkeng', vn: 'Trải nghiệm nhổ nhãn' },
+                '手沖咖啡工作坊': { zh: '手沖咖啡工作坊', en: 'Pour-Over Coffee Workshop', id: 'Workshop Kopi manual', vn: 'Lớp học cà phê thủ công' },
+                '東南亞文化交流日': { zh: '東南亞文化交流日', en: 'Southeast Asian Cultural Day', id: 'Hari Budaya Asia Tenggara', vn: 'Ngày giao lưu văn hóa Đông Nam Á' }
+            };
+
+            document.getElementById('bookingEvent').value = eventName;
+            document.getElementById('modalEventName').innerText = translatedEvent[eventName] ? translatedEvent[eventName][currentLang] : eventName;
+            
+            const myModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+            myModal.show();
+        }
+
+        const dictionary = {
+            zh: {
+                nav_brand: "炭焙龍香・福興啡語",
+                nav_home: "首頁", nav_story: "品牌故事", nav_mall: "商品商城", nav_events: "活動體驗", nav_map: "地圖導覽", nav_member: "會員中心", nav_contact: "聯絡我們",
+                hero_title: "活動體驗", hero_desc: "地方文化 × 多元交流 × 農村生活",
+                section_title: "年度活動企劃", status_open: "開放報名中", status_full: "即將額滿", status_soon: "即將開放",
+                event_1_title: "龍眼採果體驗", event_1_desc: "體驗福興村結實纍纍的龍眼採收文化，親身走進果園深處，認識地方歷史悠久的傳統農業與純樸的農村生活方式。",
+                event_2_title: "手沖咖啡工作坊", event_2_desc: "由在地烘豆師指導，學習基礎至進階的精品咖啡沖泡技巧，深度品味與認識福興村獨特的龍眼木炭焙風味與循環經濟理念。",
+                event_3_title: "東南亞文化交流日", event_3_desc: "特別邀請在地產業的外籍移工與鄰近學校之國際學生，與福興村居民共同參與，透過異國美食、民俗展演與咖啡落實多元文化共融。",
+                info_date: "活動日期：", info_loc: "活動地點：", info_limit: "活動人數：",
+                btn_book_1: "立即線上報名", btn_book_2: "我要保留名額", btn_book_3: "查看活動詳情",
+                live_title: "最新報名實時動態", live_badge: "LIVE 後台同步中", live_loading: "正在載入雲端動態...",
+                modal_name: "您的姓名", modal_phone: "電話號碼", modal_confirm: "確認送出報名",
+                footer_sub: "彰化縣大村鄉福興村地方創生計畫"
+            },
+            en: {
+                nav_brand: "Longan & Coffee • Fuxing",
+                nav_home: "Home", nav_story: "Story", nav_mall: "Mall", nav_events: "Events", nav_map: "Map", nav_member: "Members", nav_contact: "Contact",
+                hero_title: "Events Experience", hero_desc: "Local Culture × Multi-Group Exchange × Rural Life",
+                section_title: "Annual Events Program", status_open: "Open for Booking", status_full: "Filling Up", status_soon: "Soon",
+                event_1_title: "Longan Harvesting", event_1_desc: "Harvest longan fruit directly in Fuxing Village orchards, experiencing traditional agriculture and local warm rural lifestyles first-hand.",
+                event_2_title: "Pour-Over Coffee Class", event_2_desc: "Learn pour-over coffee basics and advanced skills under local roasters, exploring Fuxing's unique circular carbon-neutral longan-wood baking story.",
+                event_3_title: "Southeast Asian Culture Day", event_3_desc: "A warm cultural party gathering local migrant workers, international students, and residents over fine food, coffee, folk performances, and smiles.",
+                info_date: "Date: ", info_loc: "Location: ", info_limit: "Capacity: ",
+                btn_book_1: "Register Online", btn_book_2: "Reserve My Spot", btn_book_3: "Details Info",
+                live_title: "Live Cloud Bookings Dashboard", live_badge: "SYNCED WITH CLOUD", live_loading: "Loading bookings feed...",
+                modal_name: "Your Name", modal_phone: "Phone Number", modal_confirm: "Submit Registration",
+                footer_sub: "Fuxing Village Local Revitalization Project, Dacun"
+            },
+            id: {
+                nav_brand: "Kopi Lengkeng • Fuxing",
+                nav_home: "Beranda", nav_story: "Cerita", nav_mall: "Mall", nav_events: "Aktivitas", nav_map: "Peta", nav_member: "Anggota", nav_contact: "Kontak",
+                hero_title: "Pengalaman Aktivitas", hero_desc: "Budaya Lokal × Pertukaran Multi-kelompok × Kehidupan Desa",
+                section_title: "Rencana Aktivitas Tahunan", status_open: "Pendaftaran Dibuka", status_full: "Hampir Penuh", status_soon: "Segera Hadir",
+                event_1_title: "Petik Lengkeng Fuxing", event_1_desc: "Petik langsung buah Lengkeng di kebun Desa Fuxing, alami cara bertani tradisional dan gaya hidup pedesaan yang ramah.",
+                event_2_title: "Workshop Seduh Kopi Manual", event_2_desc: "Belajar keterampilan seduh kopi manual bersama roaster lokal, pahami kisah ramah lingkungan pemanggangan kopi berbasis kayu lengkeng Fuxing.",
+                event_3_title: "Hari Budaya Asia Tenggara", event_3_desc: "Pesta hangat yang mempertemukan pekerja migran, mahasiswa asing, dan warga desa melalui makanan tradisional, pertunjukan budaya, dan kopi.",
+                info_date: "Tanggal: ", info_loc: "Tempat: ", info_limit: "Kapasitas: ",
+                btn_book_1: "Daftar Sekarang", btn_book_2: "Pesan Kursi Saya", btn_book_3: "Detail Selengkapnya",
+                live_title: "Papan Dinamis Pendaftaran Real-time", live_badge: "SINGKRON CLOUD", live_loading: "Memuat info cloud...",
+                modal_name: "Nama Anda", modal_phone: "Nomor Telepon", modal_confirm: "Kirim Formulir",
+                footer_sub: "Proyek Revitalisasi Desa Fuxing, Dacun"
+            },
+            vn: {
+                nav_brand: "Cà phê Nhãn • Phúc Hưng",
+                nav_home: "Trang chủ", nav_story: "Câu chuyện", nav_mall: "Cửa hàng", nav_events: "Sự kiện", nav_map: "Bản đồ", nav_member: "Hội viên", nav_contact: "Liên hệ",
+                hero_title: "Sự kiện", hero_desc: "Văn hóa địa phương × Giao lưu đa văn hóa × Đời sống nông thôn",
+                section_title: "Lên kế hoạch sự kiện năm", status_open: "Đang mở đăng ký", status_full: "Sắp hết chỗ", status_soon: "Sắp mở",
+                event_1_title: "Trải nghiệm nhổ nhãn", event_1_desc: "Hái nhãn tươi ngay tại vườn cây ăn trái Làng Phúc Hưng, trải nghiệm nông nghiệp truyền thống lâu đời và nếp sống mộc mạc.",
+                event_2_title: "Lớp học pha cà phê", event_2_desc: "Học kỹ năng pha cà phê thủ công dưới sự hướng dẫn của thợ rang địa phương, tìm hiểu kinh tế tuần hoàn từ việc sấy bằng củi nhãn.",
+                event_3_title: "Ngày giao lưu văn hóa Đông Nam Á", event_3_desc: "Lễ hội giao lưu văn hóa Đông Nam Á dành riêng cho lao động, sinh viên nước ngoài và người dân cùng trải nghiệm ẩm thực, nghệ thuật dân gian.",
+                info_date: "Thời gian: ", info_loc: "Địa điểm: ", info_limit: "Giới hạn: ",
+                btn_book_1: "Đăng ký trực tuyến", btn_book_2: "Giữ chỗ của tôi", btn_book_3: "Xem chi tiết sự kiện",
+                live_title: "Bảng theo dõi đăng ký Real-time", live_badge: "KẾT NỐI CLOUD", live_loading: "Đang đồng bộ dữ liệu...",
+                modal_name: "Họ tên của bạn", modal_phone: "Số điện thoại", modal_confirm: "Gửi đăng ký",
+                footer_sub: "Dự án Tái thiết Làng Phúc Hưng, Đại Thôn"
+            }
+        };
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    element.innerText = dictionary[lang][key];
+                }
+            });
+
+            // 調整 Modal 欄位 placeholder
+            if (lang === 'en') {
+                document.getElementById('bookingName').placeholder = "Enter your full name";
+                document.getElementById('bookingPhone').placeholder = "Enter your mobile number";
+            } else if (lang === 'id') {
+                document.getElementById('bookingName').placeholder = "Masukkan nama lengkap";
+                document.getElementById('bookingPhone').placeholder = "Masukkan nomor telepon";
+            } else if (lang === 'vn') {
+                document.getElementById('bookingName').placeholder = "Nhập họ tên đầy đủ";
+                document.getElementById('bookingPhone').placeholder = "Nhập số điện thoại";
+            } else {
+                document.getElementById('bookingName').placeholder = "請輸入姓名";
+                document.getElementById('bookingPhone').placeholder = "請輸入手機號碼";
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white border-0 show m-2 bg-${type === 'danger' ? 'danger' : 'success'}`;
+            toast.role = 'alert';
+            toast.style.borderRadius = '12px';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body p-3">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ once: true, duration: 800 });
+            const savedLang = sessionStorage.getItem('preferred_language') || 'zh';
+            applyLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

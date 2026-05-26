@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員中心｜福興龍眼咖啡</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+
+    <style>
+        body {
+            background: #f6f1ea;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4a3426;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .navbar-brand, .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 22px;
+            color: #5c3d2e !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #4a3426 !important;
+            margin-left: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #8b5e3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover { color: #8b5e3c !important; }
+
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .member-box {
+            background: white;
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .member-box h2 { color: #5c3d2e; font-weight: 700; }
+        .form-label { font-weight: 500; color: #5c3d2e; }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 18px;
+            border: 1px solid rgba(74, 52, 38, 0.15);
+            background: #fbf9f6;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: #8b5e3c;
+            box-shadow: 0 0 0 0.25rem rgba(139, 94, 60, 0.15);
+            color: #4a3426;
+        }
+
+        .main-btn {
+            width: 100%;
+            background: #c89b72;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(200, 155, 114, 0.3);
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .main-btn:hover {
+            background: #8b5e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 94, 60, 0.4);
+        }
+
+        .feature-card {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 24px;
+            box-shadow: 0 8px 25px rgba(74, 52, 38, 0.03);
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 35px rgba(74, 52, 38, 0.1);
+            border-color: rgba(200, 155, 114, 0.3);
+        }
+
+        .feature-card h4 {
+            color: #5c3d2e;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background: #c89b72;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .feature-card p { font-size: 15px; color: #6b5344; line-height: 1.6; }
+
+        footer {
+            background: #362419;
+            color: #dfd5cb;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 4px solid #c89b72;
+        }
+        footer h4 { color: white; font-weight: 700; }
+
+        #toast-container .toast {
+            background: rgba(54, 36, 25, 0.95) !important;
+            border: 1px solid rgba(200, 155, 114, 0.3) !important;
+            color: #f6f1ea !important;
+            border-radius: 16px;
+        }
+
+        /* 歡迎中心看板 */
+        .welcome-card {
+            background: white;
+            border-radius: 30px;
+            padding: 45px;
+            box-shadow: 0 10px 30px rgba(74, 52, 38, 0.04);
+            border: 1px solid rgba(74, 52, 38, 0.05);
+            text-align: center;
+        }
+
+        @media(max-width:768px) {
+            .member-box { padding: 35px 20px; }
+            .hero { height: 300px; background-attachment: scroll; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <svg class="me-2" width="32" height="32" viewBox="0 0 500 500">
+                <circle cx="250" cy="250" r="220"
+                    fill="none"
+                    stroke="#c89b72"
+                    stroke-width="12"
+                    stroke-dasharray="15 8"/>
+
+                <circle cx="250" cy="250" r="200"
+                    fill="#fdfaf6"
+                    stroke="#8b5e3c"
+                    stroke-width="8"/>
+
+                <path d="M -5,-90 C -60,-90 -95,-45 -95,10 C -95,65 -55,90 -5,90 C -5,40 -25,-10 -5,-90 Z"
+                    fill="#8b5e3c"
+                    transform="translate(250,230)" />
+
+                <path d="M 5,-90 C 25,-10 5,40 5,90 C 55,90 95,65 95,10 C 95,-45 60,-90 5,-90 Z"
+                    fill="#c89b72"
+                    transform="translate(250,230)" />
+
+                <path d="M -5,-90 Q 20,-30 -20,10 T 5,90"
+                    fill="none"
+                    stroke="#fdfaf6"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                    transform="translate(250,230)" />
+
+                <circle cx="210" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="250" cy="365"
+                    r="30"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+
+                <circle cx="290" cy="350"
+                    r="25"
+                    fill="#c89b72"
+                    stroke="#8b5e3c"
+                    stroke-width="4" />
+            </svg>
+
+            <span data-i18n="nav_brand">
+                炭焙龍香・福興啡語
+            </span>
+
+        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav_home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="story.html" data-i18n="nav_story">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav_mall">商品商城</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html" data-i18n="nav_events">活動體驗</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html" data-i18n="nav_map">地圖導覽</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="member.html" data-i18n="nav_member">會員中心</a></li>
+                    <li class="nav-item"><a class="nav-link " href="contact.html" data-i18n="nav_contact">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero -->
+    <section class="hero">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1 data-i18n="hero_title">會員中心</h1>
+            <p class="mt-3 opacity-90" data-i18n="hero_desc">加入福興龍眼咖啡會員平台</p>
+        </div>
+    </section>
+
+    <!-- 登入註冊/會員狀態區塊 -->
+    <section class="py-5 my-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6" id="memberPanel" data-aos="zoom-in" data-aos-delay="100">
+                    <!-- 預設：登入區塊 -->
+                    <div class="member-box" id="loginFormBlock">
+                        <h2 class="text-center mb-4" id="formHeader" data-i18n="box_header">會員登入</h2>
+                        <form id="authForm">
+                            <div class="mb-3">
+                                <label class="form-label" data-i18n="form_email">電子信箱</label>
+                                <input type="email" id="memberEmail" class="form-control mt-1" placeholder="請輸入您的 Email" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" data-i18n="form_password">密碼</label>
+                                <input type="password" id="memberPassword" class="form-control mt-1" placeholder="請輸入您的密碼" required>
+                            </div>
+
+                            <button type="submit" class="main-btn" id="btnAuthAction" data-i18n="btn_login_submit">確認登入會員</button>
+                        </form>
+
+                        <div class="text-center mt-4 pt-2">
+                            <p class="text-muted small mb-2" id="switchNotice" data-i18n="switch_notice">尚未加入福興啡語會員？</p>
+                            <button class="btn btn-outline-secondary px-4 btn-sm" id="btnSwitchMode" style="border-radius: 50px;" data-i18n="btn_switch_register">
+                                立即免費註冊
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 登入成功後：歡迎看板 -->
+                    <div class="welcome-card d-none" id="welcomeBlock">
+                        <div class="mb-3"><span style="font-size: 50px;">☕</span></div>
+                        <h3 style="color:#5c3d2e; font-weight:700;" data-i18n="welcome_title">歡迎回來，尊榮會員！</h3>
+                        <p class="mt-3 text-muted" id="userEmailLabel"></p>
+                        <div class="p-3 my-4 text-start" style="background:#f6f1ea; border-radius:16px;">
+                            <span class="small text-muted" data-i18n="member_cloud_id">雲端驗證 UID：</span>
+                            <code class="d-block text-break mt-1" id="userUIDLabel" style="color:#8b5e3c;"></code>
+                        </div>
+                        <button class="btn btn-outline-danger px-4 mt-2" style="border-radius: 50px;" id="btnLogout" data-i18n="btn_logout">登出帳號</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 會員專屬權益 -->
+    <section class="pb-5 my-4">
+        <div class="container">
+            <h2 class="text-center mb-5 font-weight-bold" data-aos="fade-up" style="color: #4a3426; font-weight: 700;" data-i18n="rights_title">會員專屬權益</h2>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card text-center">
+                        <h4 data-i18n="right_1_title">商品收藏</h4>
+                        <p class="mt-3" data-i18n="right_1_desc">一鍵收藏喜愛的精品咖啡與限量農特產品禮盒，方便隨時追蹤、回購並查看最新推廣優惠資訊。</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card text-center">
+                        <h4 data-i18n="right_2_title">活動報名</h4>
+                        <p class="mt-3" data-i18n="right_2_desc">享有熱門活動第一手通知，可線上快速報名地方採果體驗、龍眼木炭焙手沖工作坊與文化共融論壇。</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card text-center">
+                        <h4 data-i18n="right_3_title">多語言支援</h4>
+                        <p class="mt-3" data-i18n="right_3_desc">全站貼心內建印尼語、越南語等多語系點擊預覽，落實友善大村在地移工與外籍學生的共融平台環境。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h4 data-i18n="nav_brand">福興龍眼咖啡</h4>
+            <p class="mt-3 mb-1 opacity-75">Longan Coffee & Cultural Platform © 2026</p>
+            <p class="small opacity-50" data-i18n="footer_sub">彰化縣大村鄉福興村地方創生計畫</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Firebase與註冊/登入核心 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+        const firebaseConfig = window.__firebase_config ? JSON.parse(window.__firebase_config) : {
+            apiKey: "",
+            authDomain: "mock-project.firebaseapp.com",
+            projectId: "mock-project",
+            storageBucket: "mock-project.appspot.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'fuxing-coffee';
+
+        let isRegisterMode = false;
+
+        // 登入狀態監聽
+        onAuthStateChanged(auth, (user) => {
+            if (user && !user.isAnonymous) {
+                // 已登入
+                document.getElementById('loginFormBlock').classList.add('d-none');
+                document.getElementById('welcomeBlock').classList.remove('d-none');
+                document.getElementById('userEmailLabel').innerText = user.email;
+                document.getElementById('userUIDLabel').innerText = user.uid;
+            } else {
+                // 未登入 (或為模擬狀態之匿名使用者)
+                document.getElementById('loginFormBlock').classList.remove('d-none');
+                document.getElementById('welcomeBlock').classList.add('d-none');
+            }
+        });
+
+        // 模式切換 (註冊/登入)
+        document.getElementById('btnSwitchMode').addEventListener('click', () => {
+            isRegisterMode = !isRegisterMode;
+            const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+            
+            const trans = {
+                login: { header: "會員登入", btn: "確認登入會員", notice: "尚未加入福興啡語會員？", switchBtn: "立即免費註冊" },
+                reg: { header: "會員註冊", btn: "確認建立新帳號", notice: "已經有帳號了嗎？", switchBtn: "返回登入畫面" }
+            };
+
+            const langData = dictionary[currentLang];
+
+            if (isRegisterMode) {
+                document.getElementById('formHeader').innerText = currentLang === 'zh' ? trans.reg.header : "Sign Up";
+                document.getElementById('btnAuthAction').innerText = currentLang === 'zh' ? trans.reg.btn : "Create Account";
+                document.getElementById('switchNotice').innerText = currentLang === 'zh' ? trans.reg.notice : "Already have an account?";
+                document.getElementById('btnSwitchMode').innerText = currentLang === 'zh' ? trans.reg.switchBtn : "Back to Sign In";
+            } else {
+                document.getElementById('formHeader').innerText = currentLang === 'zh' ? trans.login.header : "Sign In";
+                document.getElementById('btnAuthAction').innerText = currentLang === 'zh' ? trans.login.btn : "Sign In Member";
+                document.getElementById('switchNotice').innerText = currentLang === 'zh' ? trans.login.notice : "Not a member yet?";
+                document.getElementById('btnSwitchMode').innerText = currentLang === 'zh' ? trans.login.switchBtn : "Sign Up Free";
+            }
+        });
+
+        // 提交表單 (註冊 or 登入)
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('memberEmail').value;
+            const password = document.getElementById('memberPassword').value;
+            const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+
+            try {
+                if (isRegisterMode) {
+                    // 1. 創立 Firebase Auth 帳號
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+
+                    // 2. 建立私密 Profile 文件 (RULE 1)
+                    const userProfileDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'data');
+                    await setDoc(userProfileDoc, {
+                        email,
+                        registeredAt: new Date().toISOString()
+                    });
+
+                    const msg = { zh: "帳號建立成功，並已寫入雲端檔案！", en: "Account created and saved to cloud!", id: "Akun berhasil dibuat & disimpan!", vn: "Tài khoản đã tạo thành công!" };
+                    showToast(msg[currentLang]);
+                } else {
+                    // 登入
+                    await signInWithEmailAndPassword(auth, email, password);
+                    const msg = { zh: "歡迎回來！雲端資料庫驗證成功。", en: "Welcome back! Verified on Cloud.", id: "Selamat datang kembali! Terverifikasi.", vn: "Chào mừng trở lại! Xác thực thành công." };
+                    showToast(msg[currentLang]);
+                }
+            } catch (err) {
+                console.error("Auth submit error:", err);
+                const errMsg = {
+                    zh: "認證操作失敗，密碼需大於六位數且格式正確。",
+                    en: "Authentication failed. Make sure password is at least 6 characters.",
+                    id: "Gagal. Pastikan kata sandi minimal 6 karakter.",
+                    vn: "Xác thực thất bại. Vui lòng đảm bảo mật khẩu từ 6 ký tự."
+                };
+                showToast(errMsg[currentLang], 'danger');
+            }
+        });
+
+        // 登出
+        document.getElementById('btnLogout').addEventListener('click', async () => {
+            await signOut(auth);
+            const currentLang = sessionStorage.getItem('preferred_language') || 'zh';
+            showToast(currentLang === 'zh' ? '已安全登出帳號。' : 'Successfully signed out.');
+        });
+    </script>
+
+    <script>
+        const dictionary = {
+            zh: {
+                nav_brand: "炭焙龍香・福興啡語",
+                nav_home: "首頁", nav_story: "品牌故事", nav_mall: "商品商城", nav_events: "活動體驗", nav_map: "地圖導覽", nav_member: "會員中心", nav_contact: "聯絡我們",
+                hero_title: "會員中心", hero_desc: "加入福興龍眼咖啡會員平台",
+                box_header: "會員登入", form_email: "電子信箱", form_password: "密碼", btn_login_submit: "確認登入會員",
+                switch_notice: "尚未加入福興啡語會員？", btn_switch_register: "立即免費註冊",
+                welcome_title: "歡迎回來，尊榮會員！", member_cloud_id: "雲端驗證 UID：", btn_logout: "登出帳號",
+                rights_title: "會員專屬權益",
+                right_1_title: "商品收藏", right_1_desc: "一鍵收藏喜愛的精品咖啡與限量農特產品禮盒，方便隨時追蹤、回購並查看最新推廣優惠資訊。",
+                right_2_title: "活動報名", right_2_desc: "享有熱門活動第一手通知，可線上快速報名地方採果體驗、龍眼木炭焙手沖工作坊與文化共融論壇。",
+                right_3_title: "多語言支援", right_3_desc: "全站貼心內建印尼語、越南語等多語系點擊預覽，落實友善大村在地移工與外籍學生的共融平台環境。",
+                footer_sub: "彰化縣大村鄉福興村地方創生計畫"
+            },
+            en: {
+                nav_brand: "Longan & Coffee • Fuxing",
+                nav_home: "Home", nav_story: "Story", nav_mall: "Mall", nav_events: "Events", nav_map: "Map", nav_member: "Members", nav_contact: "Contact",
+                hero_title: "Members Center", hero_desc: "Join Fuxing Longan Coffee Members Hub",
+                box_header: "Sign In", form_email: "Email Address", form_password: "Password", btn_login_submit: "Sign In",
+                switch_notice: "Not a member yet?", btn_switch_register: "Sign Up Free",
+                welcome_title: "Welcome Back, Premium Member!", member_cloud_id: "Cloud UID: ", btn_logout: "Sign Out",
+                rights_title: "Member Privileges",
+                right_1_title: "Wishlist Track", right_1_desc: "One-click to save your favorite premium coffees and longan gift box items for easy tracking.",
+                right_2_title: "Priority Booking", right_2_desc: "Get first-priority notification for local longan picking, coffee workshops, and multicultural events.",
+                right_3_title: "Multilingual Layout", right_3_desc: "Designed with fully inclusive multi-language support (English, Indonesian, Vietnamese) for global friends.",
+                footer_sub: "Fuxing Village Local Revitalization Project, Dacun"
+            },
+            id: {
+                nav_brand: "Kopi Lengkeng • Fuxing",
+                nav_home: "Beranda", nav_story: "Cerita", nav_mall: "Mall", nav_events: "Aktivitas", nav_map: "Peta", nav_member: "Anggota", nav_contact: "Kontak",
+                hero_title: "Pusat Anggota", hero_desc: "Bergabunglah dengan Platform Anggota Fuxing",
+                box_header: "Masuk Anggota", form_email: "Alamat Email", form_password: "Kata Sandi", btn_login_submit: "Masuk",
+                switch_notice: "Belum terdaftar sebagai anggota?", btn_switch_register: "Daftar Gratis Sekarang",
+                welcome_title: "Selamat Datang Kembali, Anggota Premium!", member_cloud_id: "UID Validasi Cloud: ", btn_logout: "Keluar Akun",
+                rights_title: "Hak Eksklusif Anggota",
+                right_1_title: "Favoritkan Produk", right_1_desc: "Simpan kopi premium dan paket oleh-oleh lengkeng favorit Anda untuk pelacakan dan pembelian ulang.",
+                right_2_title: "Prioritas Kegiatan", right_2_desc: "Dapatkan info tercepat untuk pendaftaran memetik buah lengkeng, workshop seduh kopi, dan forum inklusi budaya.",
+                right_3_title: "Dukungan Bahasa", right_3_desc: "Menyediakan bahasa Indonesia dan Vietnam untuk menciptakan lingkungan yang ramah bagi teman-teman asing di Dacun.",
+                footer_sub: "Proyek Revitalisasi Desa Fuxing, Dacun"
+            },
+            vn: {
+                nav_brand: "Cà phê Nhãn • Phúc Hưng",
+                nav_home: "Trang chủ", nav_story: "Câu chuyện", nav_mall: "Cửa hàng", nav_events: "Sự kiện", nav_map: "Bản đồ", nav_member: "Hội viên", nav_contact: "Liên hệ",
+                hero_title: "Trung tâm Hội viên", hero_desc: "Tham gia vào cộng đồng thành viên Phúc Hưng",
+                box_header: "Đăng nhập", form_email: "Địa chỉ Email", form_password: "Mật khẩu", btn_login_submit: "Đăng nhập ngay",
+                switch_notice: "Chưa là thành viên của chúng tôi?", btn_switch_register: "Đăng ký miễn phí",
+                welcome_title: "Chào mừng trở lại, Hội viên danh dự!", member_cloud_id: "Xác thực đám mây UID: ", btn_logout: "Đăng xuất tài khoản",
+                rights_title: "Quyền lợi của Hội viên",
+                right_1_title: "Yêu thích sản phẩm", right_1_desc: "Lưu trữ bộ sưu tập cà phê chất lượng cao và hộp quà tặng nhãn để theo dõi ưu đãi đặc biệt.",
+                right_2_title: "Ưu tiên đăng ký sự kiện", right_2_desc: "Nhận thông báo sớm nhất để đăng ký hái nhãn, workshop pha cà phê trực tuyến và hội thảo cộng đồng.",
+                right_3_title: "Hỗ trợ đa ngôn ngữ", right_3_desc: "Hỗ trợ tiếng Việt, tiếng Indonesia thân thiện nhằm xây dựng không gian trực tuyến bình đẳng văn hóa.",
+                footer_sub: "Dự án Tái thiết Làng Phúc Hưng, Đại Thôn"
+            }
+        };
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    element.innerText = dictionary[lang][key];
+                }
+            });
+
+            // 修正輸入欄位 Placeholder
+            if (lang === 'en') {
+                document.getElementById('memberEmail').placeholder = "Your email address";
+                document.getElementById('memberPassword').placeholder = "Your secure password";
+            } else if (lang === 'id') {
+                document.getElementById('memberEmail').placeholder = "Alamat email Anda";
+                document.getElementById('memberPassword').placeholder = "Kata sandi Anda";
+            } else if (lang === 'vn') {
+                document.getElementById('memberEmail').placeholder = "Địa chỉ email của bạn";
+                document.getElementById('memberPassword').placeholder = "Mật khẩu của bạn";
+            } else {
+                document.getElementById('memberEmail').placeholder = "請輸入您的 Email";
+                document.getElementById('memberPassword').placeholder = "請輸入您的密碼";
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white border-0 show m-2 bg-${type === 'danger' ? 'danger' : 'success'}`;
+            toast.role = 'alert';
+            toast.style.borderRadius = '12px';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body p-3">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ once: true, duration: 800 });
+            const savedLang = sessionStorage.getItem('preferred_language') || 'zh';
+            applyLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
